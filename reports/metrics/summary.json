@@ -1,0 +1,45 @@
+{
+  "trips_kept": 1288695819,
+  "trend_adjusted_range": [
+    -0.007232637708038542,
+    0.02290884193917564
+  ],
+  "naive_range": [
+    -0.0666151371498164,
+    -0.026266427436976564
+  ],
+  "main_effect": 0.009928734127698164,
+  "main_ci": [
+    -0.002519309073474346,
+    0.022532122470834602
+  ],
+  "fake_date_rms_trend_adjusted": 0.04310804802289657,
+  "fake_date_range_trend_adjusted": [
+    -0.0555618669596926,
+    0.07920917267482594
+  ],
+  "fake_date_range_quick": [
+    -0.07139382884128617,
+    -0.05205955797470792
+  ],
+  "speed_uber": 0.0495763689099311,
+  "speed_taxi": 0.04391355115720634,
+  "wait_uber": -0.05659126788910507,
+  "pay_per_hour_uber": 0.02662018200028115,
+  "year2_did": -0.0355481913403031,
+  "year2_forecast_cbd_minus_manhattan": 0.0018723485112430716,
+  "shared_requests_uber": -0.12734932897705764,
+  "two_step_effect": 0.011991551098932074,
+  "forecast_net_of_backtest": {
+    "cbd": 0.0031150952934242415,
+    "manhattan": -0.009672483045393698,
+    "cbd_minus_manhattan": 0.01289319236962072
+  },
+  "elasticity": {
+    "price_increase": 0.043075761740618106,
+    "forecast_lowest_trip_change": -0.02135390854873466,
+    "forecast_elasticity_bound": -0.5118152948767462,
+    "did_lowest_trip_change": -0.07628736191809497,
+    "did_elasticity_bound": -1.881600223130141
+  }
+}

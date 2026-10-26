@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -r requirements.txt ruff==0.6.9
+      - name: Lint
+        run: ruff check src tests scripts notebooks app
+      - name: Tests (ETL, methods, reported numbers, app)
+        run: pytest -q
+      - name: Notebooks match their .py sources
+        run: python scripts/build_notebooks.py --check
+      - name: Re-run every notebook on the committed aggregates
+        env:
+          MPLBACKEND: Agg
+        run: |
+          for nb in notebooks/0*.py; do echo "== $nb"; python "$nb" > /dev/null; done
+      - name: Re-computed results match the committed ones
+        run: python scripts/check_metrics.py

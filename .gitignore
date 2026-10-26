@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.vscode/
+*.egg-info/
+
+# Raw TLC downloads and per-month pieces (rebuilt by scripts/build_data.py)
+data/raw/*
+!data/raw/README.md
+data/interim/
+
+# Private notes (not pushed to GitHub)
+reports/prep/

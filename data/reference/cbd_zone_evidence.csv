@@ -1,0 +1,259 @@
+zone,hvfhv_trips,hvfhv_fee_share,yellow_trips,yellow_fee_share,group,Borough,Zone
+12,1,1.0,58,0.534,cbd,Manhattan,Battery Park
+113,5137,0.967,4462,0.899,cbd,Manhattan,Greenwich Village North
+231,30572,0.965,8980,0.902,cbd,Manhattan,TriBeCa/Civic Center
+125,1578,0.962,950,0.811,cbd,Manhattan,Hudson Sq
+234,10980,0.961,9623,0.902,cbd,Manhattan,Union Sq
+162,5663,0.96,12049,0.901,cbd,Manhattan,Midtown East
+161,11861,0.96,21752,0.896,cbd,Manhattan,Midtown Center
+211,3802,0.958,2039,0.876,cbd,Manhattan,SoHo
+158,5748,0.958,2992,0.869,cbd,Manhattan,Meatpacking/West Village West
+87,3643,0.958,1811,0.845,cbd,Manhattan,Financial District North
+246,17023,0.956,9389,0.88,cbd,Manhattan,West Chelsea/Hudson Yards
+163,6726,0.952,7899,0.855,cbd,Manhattan,Midtown North
+170,9421,0.951,12017,0.896,cbd,Manhattan,Murray Hill
+68,15929,0.951,15371,0.903,cbd,Manhattan,East Chelsea
+90,5941,0.951,5532,0.884,cbd,Manhattan,Flatiron
+114,3860,0.95,4111,0.871,cbd,Manhattan,Greenwich Village South
+144,4803,0.95,2926,0.853,cbd,Manhattan,Little Italy/NoLiTa
+164,7989,0.95,6791,0.869,cbd,Manhattan,Midtown South
+230,14824,0.949,15189,0.842,cbd,Manhattan,Times Sq/Theatre District
+233,4289,0.949,3698,0.855,cbd,Manhattan,UN/Turtle Bay South
+249,10603,0.949,9434,0.9,cbd,Manhattan,West Village
+45,1335,0.947,490,0.839,cbd,Manhattan,Chinatown
+79,22005,0.947,16737,0.911,cbd,Manhattan,East Village
+107,7382,0.947,7710,0.899,cbd,Manhattan,Gramercy
+148,10922,0.945,5037,0.868,cbd,Manhattan,Lower East Side
+229,4282,0.944,6464,0.885,cbd,Manhattan,Sutton Place/Turtle Bay North
+48,13974,0.942,15785,0.891,cbd,Manhattan,Clinton East
+137,3442,0.939,3188,0.859,cbd,Manhattan,Kips Bay
+232,6339,0.938,847,0.848,cbd,Manhattan,Two Bridges/Seward Park
+13,3702,0.938,1477,0.775,cbd,Manhattan,Battery Park City
+50,4493,0.936,2355,0.853,cbd,Manhattan,Clinton West
+100,2737,0.932,3616,0.816,cbd,Manhattan,Garment District
+209,729,0.931,413,0.804,cbd,Manhattan,Seaport
+186,2556,0.93,5642,0.813,cbd,Manhattan,Penn Station/Madison Sq West
+4,1654,0.925,696,0.842,cbd,Manhattan,Alphabet City
+261,2077,0.923,1196,0.717,cbd,Manhattan,World Trade Center
+224,540,0.92,365,0.816,cbd,Manhattan,Stuy Town/Peter Cooper Village
+88,665,0.902,621,0.754,cbd,Manhattan,Financial District South
+142,8885,0.467,16412,0.377,border,Manhattan,Lincoln Square East
+43,1071,0.39,6096,0.313,border,Manhattan,Central Park
+143,7895,0.298,6807,0.179,border,Manhattan,Lincoln Square West
+237,27098,0.29,49634,0.227,border,Manhattan,Upper East Side South
+141,9589,0.144,16110,0.159,border,Manhattan,Lenox Hill West
+140,7576,0.14,10922,0.126,border,Manhattan,Lenox Hill East
+66,1935,0.035,182,0.049,outer,Brooklyn,DUMBO/Vinegar Hill
+262,2823,0.031,5314,0.015,manhattan_north,Manhattan,Yorkville East
+138,2861,0.031,5243,0.024,airport,Queens,LaGuardia Airport
+34,347,0.023,37,0.0,outer,Brooklyn,Brooklyn Navy Yard
+54,204,0.02,20,0.0,outer,Brooklyn,Columbia Street
+202,976,0.017,51,0.0,manhattan_north,Manhattan,Roosevelt Island
+263,7382,0.016,11174,0.006,manhattan_north,Manhattan,Yorkville West
+146,3718,0.015,623,0.019,outer,Queens,Long Island City/Queens Plaza
+151,3368,0.014,3756,0.007,manhattan_north,Manhattan,Manhattan Valley
+24,852,0.013,562,0.014,manhattan_north,Manhattan,Bloomingdale
+239,12270,0.013,19417,0.008,manhattan_north,Manhattan,Upper West Side South
+238,10134,0.013,13205,0.007,manhattan_north,Manhattan,Upper West Side North
+65,5061,0.013,324,0.015,outer,Brooklyn,Downtown Brooklyn/MetroTech
+106,2576,0.012,52,0.0,outer,Brooklyn,Gowanus
+236,21832,0.012,51166,0.006,manhattan_north,Manhattan,Upper East Side North
+52,1146,0.01,74,0.014,outer,Brooklyn,Cobble Hill
+33,11983,0.006,371,0.022,outer,Brooklyn,Brooklyn Heights
+195,3805,0.006,199,0.03,outer,Brooklyn,Red Hook
+256,25788,0.005,445,0.018,outer,Brooklyn,Williamsburg (South Side)
+152,3345,0.004,461,0.007,manhattan_north,Manhattan,Manhattanville
+40,3472,0.004,72,0.028,outer,Brooklyn,Carroll Gardens
+193,5876,0.004,3140,0.002,outer,Queens,Queensbridge/Ravenswood
+49,16495,0.003,228,0.004,outer,Brooklyn,Clinton Hill
+255,30398,0.003,555,0.013,outer,Brooklyn,Williamsburg (North Side)
+97,20203,0.003,403,0.012,outer,Brooklyn,Fort Greene
+25,11004,0.003,409,0.002,outer,Brooklyn,Boerum Hill
+257,3366,0.002,51,0.0,outer,Brooklyn,Windsor Terrace
+41,26035,0.002,3151,0.005,manhattan_north,Manhattan,Central Harlem
+189,5186,0.002,107,0.0,outer,Brooklyn,Prospect Heights
+145,59613,0.002,4948,0.004,outer,Queens,Long Island City/Hunters Point
+166,17198,0.002,4304,0.003,manhattan_north,Manhattan,Morningside Heights
+179,16565,0.002,362,0.003,outer,Queens,Old Astoria
+80,27579,0.002,434,0.021,outer,Brooklyn,East Williamsburg
+116,15291,0.002,793,0.006,manhattan_north,Manhattan,Hamilton Heights
+75,26132,0.002,5963,0.004,manhattan_north,Manhattan,East Harlem South
+112,57710,0.002,659,0.006,outer,Brooklyn,Greenpoint
+222,2855,0.002,35,0.0,outer,Brooklyn,Starrett City
+225,40667,0.001,338,0.0,outer,Brooklyn,Stuyvesant Heights
+227,14748,0.001,69,0.0,outer,Brooklyn,Sunset Park East
+226,39343,0.001,1769,0.006,outer,Queens,Sunnyside
+74,33294,0.001,2842,0.01,manhattan_north,Manhattan,East Harlem North
+7,86326,0.001,1756,0.006,outer,Queens,Astoria
+17,47491,0.001,361,0.006,outer,Brooklyn,Bedford
+127,12899,0.001,155,0.019,manhattan_north,Manhattan,Inwood
+157,12405,0.001,271,0.015,outer,Queens,Maspeth
+153,810,0.001,2,0.0,manhattan_north,Manhattan,Marble Hill
+83,7446,0.001,163,0.006,outer,Queens,Elmhurst/Maspeth
+70,5956,0.001,841,0.013,outer,Queens,East Elmhurst
+85,11353,0.001,120,0.008,outer,Brooklyn,Erasmus
+42,59981,0.001,2656,0.005,manhattan_north,Manhattan,Central Harlem North
+94,3980,0.001,18,0.0,outer,Bronx,Fordham South
+121,9766,0.001,57,0.018,outer,Queens,Hillcrest/Pomonok
+119,11501,0.001,74,0.0,outer,Bronx,Highbridge
+132,23834,0.001,22262,0.019,airport,Queens,JFK Airport
+167,11752,0.001,81,0.012,outer,Bronx,Morrisania/Melrose
+56,8589,0.001,74,0.0,outer,Queens,Corona
+73,2518,0.001,18,0.0,outer,Queens,East Flushing
+196,8765,0.001,120,0.017,outer,Queens,Rego Park
+136,7145,0.001,41,0.0,outer,Bronx,Kingsbridge Heights
+147,5326,0.001,26,0.0,outer,Bronx,Longwood
+37,67202,0.001,636,0.003,outer,Brooklyn,Bushwick South
+36,39722,0.001,287,0.017,outer,Brooklyn,Bushwick North
+244,45175,0.001,1326,0.005,manhattan_north,Manhattan,Washington Heights South
+243,34818,0.001,594,0.008,manhattan_north,Manhattan,Washington Heights North
+169,17330,0.001,93,0.022,outer,Bronx,Mount Hope
+168,39771,0.001,390,0.005,outer,Bronx,Mott Haven/Port Morris
+62,14077,0.001,123,0.016,outer,Brooklyn,Crown Heights South
+247,18896,0.001,174,0.0,outer,Bronx,West Concourse
+201,8710,0.0,58,0.0,outer,Queens,Rockaway Park
+203,26520,0.0,100,0.0,outer,Queens,Rosedale
+214,7816,0.0,18,0.0,outer,Staten Island,South Beach/Dongan Hills
+213,37491,0.0,143,0.0,outer,Bronx,Soundview/Castle Hill
+212,7969,0.0,79,0.013,outer,Bronx,Soundview/Bruckner
+210,33621,0.0,174,0.0,outer,Brooklyn,Sheepshead Bay
+215,14675,0.0,154,0.0,outer,Queens,South Jamaica
+200,18139,0.0,49,0.0,outer,Bronx,Riverdale/North Riverdale/Fieldston
+1,2,0.0,956,0.008,airport,EWR,Newark Airport
+228,39714,0.0,294,0.003,outer,Brooklyn,Sunset Park West
+220,27338,0.0,77,0.013,outer,Bronx,Spuyten Duyvil/Kingsbridge
+221,14745,0.0,12,0.0,outer,Staten Island,Stapleton
+223,55911,0.0,556,0.004,outer,Queens,Steinway
+208,33304,0.0,96,0.01,outer,Bronx,Schuylerville/Edgewater Park
+216,75884,0.0,1816,0.002,outer,Queens,South Ozone Park
+217,29793,0.0,136,0.0,outer,Brooklyn,South Williamsburg
+218,11619,0.0,104,0.0,outer,Queens,Springfield Gardens North
+219,8206,0.0,143,0.014,outer,Queens,Springfield Gardens South
+128,70,0.0,8,0.0,manhattan_north,Manhattan,Inwood Hill Park
+9,4525,0.0,57,0.0,outer,Queens,Auburndale
+6,2775,0.0,24,0.0,outer,Staten Island,Arrochar/Fort Wadsworth
+8,3,0.0,1,0.0,outer,Queens,Astoria Park
+5,1364,0.0,0,,outer,Staten Island,Arden Heights
+16,22270,0.0,69,0.0,outer,Queens,Bayside
+18,22720,0.0,66,0.015,outer,Bronx,Bedford Park
+19,4034,0.0,99,0.01,outer,Queens,Bellerose
+27,172,0.0,4,0.0,outer,Queens,Breezy Point/Fort Tilden/Riis Beach
+14,94835,0.0,664,0.005,outer,Brooklyn,Bay Ridge
+26,144165,0.0,667,0.0,outer,Brooklyn,Borough Park
+15,3001,0.0,25,0.0,outer,Queens,Bay Terrace/Fort Totten
+20,9085,0.0,27,0.037,outer,Bronx,Belmont
+21,15961,0.0,83,0.0,outer,Brooklyn,Bensonhurst East
+22,29879,0.0,157,0.0,outer,Brooklyn,Bensonhurst West
+23,18886,0.0,8,0.0,outer,Staten Island,Bloomfield/Emerson Hill
+29,12021,0.0,60,0.0,outer,Brooklyn,Brighton Beach
+28,10885,0.0,156,0.013,outer,Queens,Briarwood/Jamaica Hills
+205,42783,0.0,241,0.0,outer,Queens,Saint Albans
+204,2054,0.0,2,0.0,outer,Staten Island,Rossville/Woodrow
+35,53992,0.0,334,0.0,outer,Brooklyn,Brownsville
+32,8148,0.0,16,0.0,outer,Bronx,Bronxdale
+31,233,0.0,5,0.0,outer,Bronx,Bronx Park
+30,84,0.0,1,0.0,outer,Queens,Broad Channel
+117,26187,0.0,120,0.0,outer,Queens,Hammels/Arverne
+115,4762,0.0,4,0.25,outer,Staten Island,Grymes Hill/Clifton
+111,12,0.0,3,0.0,outer,Brooklyn,Green-Wood Cemetery
+118,8689,0.0,7,0.0,outer,Staten Island,Heartland Village/Todt Hill
+108,5105,0.0,31,0.0,outer,Brooklyn,Gravesend
+102,12887,0.0,71,0.0,outer,Queens,Glendale
+131,8648,0.0,108,0.009,outer,Queens,Jamaica Estates
+130,55210,0.0,643,0.006,outer,Queens,Jamaica
+89,59015,0.0,549,0.0,outer,Brooklyn,Flatbush/Ditmas Park
+86,48461,0.0,169,0.0,outer,Queens,Far Rockaway
+84,4322,0.0,3,0.0,outer,Staten Island,Eltingville/Annadale/Prince's Bay
+99,13,0.0,0,,outer,Staten Island,Freshkills Park
+96,52,0.0,7,0.0,outer,Queens,Forest Park/Highland Park
+98,3014,0.0,45,0.0,outer,Queens,Fresh Meadows
+95,82278,0.0,718,0.004,outer,Queens,Forest Hills
+93,400,0.0,157,0.025,outer,Queens,Flushing Meadows-Corona Park
+69,19727,0.0,127,0.0,outer,Bronx,East Concourse/Concourse Village
+82,52276,0.0,523,0.004,outer,Queens,Elmhurst
+71,25996,0.0,263,0.0,outer,Brooklyn,East Flatbush/Farragut
+91,34690,0.0,321,0.003,outer,Brooklyn,Flatlands
+78,19987,0.0,64,0.0,outer,Bronx,East Tremont
+81,16512,0.0,41,0.0,outer,Bronx,Eastchester
+77,11592,0.0,63,0.0,outer,Brooklyn,East New York/Pennsylvania Avenue
+76,204617,0.0,1676,0.001,outer,Brooklyn,East New York
+160,13938,0.0,117,0.0,outer,Queens,Middle Village
+159,21929,0.0,160,0.0,outer,Bronx,Melrose South
+110,1,0.0,0,,outer,Staten Island,Great Kills Park
+109,9495,0.0,1,0.0,outer,Staten Island,Great Kills
+72,27545,0.0,251,0.0,outer,Brooklyn,East Flatbush/Remsen Village
+154,50,0.0,4,0.0,outer,Brooklyn,Marine Park/Floyd Bennett Field
+92,42799,0.0,263,0.0,outer,Queens,Flushing
+101,5197,0.0,131,0.008,outer,Queens,Glen Oaks
+120,22,0.0,6,0.0,manhattan_north,Manhattan,Highbridge Park
+122,5952,0.0,51,0.039,outer,Queens,Hollis
+123,29362,0.0,154,0.0,outer,Brooklyn,Homecrest
+124,15325,0.0,105,0.0,outer,Queens,Howard Beach
+126,14816,0.0,56,0.018,outer,Bronx,Hunts Point
+133,6416,0.0,130,0.008,outer,Brooklyn,Kensington
+134,12008,0.0,276,0.007,outer,Queens,Kew Gardens
+129,82963,0.0,1416,0.005,outer,Queens,Jackson Heights
+194,66,0.0,16,0.062,manhattan_north,Manhattan,Randalls Island
+192,2284,0.0,23,0.0,outer,Queens,Queensboro Hill
+191,31715,0.0,167,0.006,outer,Queens,Queens Village
+139,19756,0.0,76,0.0,outer,Queens,Laurelton
+150,4590,0.0,42,0.0,outer,Brooklyn,Manhattan Beach
+135,6927,0.0,61,0.016,outer,Queens,Kew Gardens Hills
+156,21464,0.0,1,0.0,outer,Staten Island,Mariners Harbor
+149,16312,0.0,69,0.0,outer,Brooklyn,Madison
+165,24004,0.0,130,0.0,outer,Brooklyn,Midwood
+155,20226,0.0,157,0.0,outer,Brooklyn,Marine Park/Mill Basin
+177,19405,0.0,170,0.0,outer,Brooklyn,Ocean Hill
+175,2459,0.0,32,0.0,outer,Queens,Oakland Gardens
+190,235,0.0,11,0.091,outer,Brooklyn,Prospect Park
+197,34199,0.0,927,0.003,outer,Queens,Richmond Hill
+183,3046,0.0,8,0.0,outer,Bronx,Pelham Bay
+198,43830,0.0,278,0.007,outer,Queens,Ridgewood
+182,8889,0.0,60,0.0,outer,Bronx,Parkchester
+181,74014,0.0,756,0.012,outer,Brooklyn,Park Slope
+180,7372,0.0,77,0.0,outer,Queens,Ozone Park
+178,3772,0.0,19,0.0,outer,Brooklyn,Ocean Parkway South
+206,39689,0.0,1,0.0,outer,Staten Island,Saint George/New Brighton
+207,12,0.0,331,0.0,outer,Queens,Saint Michaels Cemetery/Woodside
+171,12553,0.0,55,0.0,outer,Queens,Murray Hill-Queens
+172,6649,0.0,5,0.0,outer,Staten Island,New Dorp/Midland Beach
+61,100541,0.0,1029,0.002,outer,Brooklyn,Crown Heights North
+60,6288,0.0,45,0.0,outer,Bronx,Crotona Park East
+64,8202,0.0,48,0.021,outer,Queens,Douglaston
+176,2471,0.0,0,,outer,Staten Island,Oakwood
+185,14891,0.0,25,0.0,outer,Bronx,Pelham Parkway
+187,5205,0.0,2,0.0,outer,Staten Island,Port Richmond
+188,48698,0.0,489,0.004,outer,Brooklyn,Prospect-Lefferts Gardens
+184,273,0.0,2,0.0,outer,Bronx,Pelham Bay Park
+57,58,0.0,7,0.0,outer,Queens,Corona
+55,39253,0.0,204,0.005,outer,Brooklyn,Coney Island
+53,8268,0.0,54,0.019,outer,Queens,College Point
+67,9084,0.0,80,0.012,outer,Brooklyn,Dyker Heights
+63,20104,0.0,164,0.006,outer,Brooklyn,Cypress Hills
+46,166,0.0,2,0.0,outer,Bronx,City Island
+58,376,0.0,2,0.0,outer,Bronx,Country Club
+59,46,0.0,2,0.0,outer,Bronx,Crotona Park
+38,5109,0.0,44,0.0,outer,Queens,Cambria Heights
+39,130792,0.0,920,0.0,outer,Brooklyn,Canarsie
+173,10512,0.0,87,0.011,outer,Queens,North Corona
+174,22510,0.0,44,0.0,outer,Bronx,Norwood
+258,23498,0.0,152,0.0,outer,Queens,Woodhaven
+44,8713,0.0,7,0.0,outer,Staten Island,Charleston/Tottenville
+51,28559,0.0,76,0.0,outer,Bronx,Co-Op City
+47,8968,0.0,43,0.0,outer,Bronx,Claremont/Bathgate
+3,13834,0.0,28,0.0,outer,Bronx,Allerton/Pelham Gardens
+260,21372,0.0,646,0.009,outer,Queens,Woodside
+259,26835,0.0,57,0.0,outer,Bronx,Woodlawn/Wakefield
+248,6974,0.0,34,0.029,outer,Bronx,West Farms/Bronx River
+253,7,0.0,6,0.0,outer,Queens,Willets Point
+250,10131,0.0,67,0.0,outer,Bronx,Westchester Village/Unionport
+251,4725,0.0,3,0.0,outer,Staten Island,Westerleigh
+252,8555,0.0,61,0.0,outer,Queens,Whitestone
+241,18300,0.0,41,0.0,outer,Bronx,Van Cortlandt Village
+240,908,0.0,4,0.0,outer,Bronx,Van Cortlandt Park
+254,41660,0.0,131,0.0,outer,Bronx,Williamsbridge/Olinville
+242,21821,0.0,77,0.0,outer,Bronx,Van Nest/Morris Park
+245,5704,0.0,3,0.0,outer,Staten Island,West Brighton
+235,19509,0.0,72,0.0,outer,Bronx,University Heights/Morris Heights
+10,15491,0.0,334,0.012,outer,Queens,Baisley Park
+11,4281,0.0,43,0.0,outer,Brooklyn,Bath Beach

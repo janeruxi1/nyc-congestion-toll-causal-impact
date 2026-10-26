@@ -1,0 +1,155 @@
+{
+  "model": "boosted",
+  "train_start": "2022-07-01",
+  "train_end": "2024-12-31",
+  "backtest": {
+    "cbd | boosted | 2023-09-30": {
+      "daily_mape": 0.05353706536162017,
+      "weekly_mape": 0.03163812518121243,
+      "placebo_effect": -0.010203133006136405
+    },
+    "cbd | boosted | 2023-12-31": {
+      "daily_mape": 0.06188265050064454,
+      "weekly_mape": 0.04020060164633578,
+      "placebo_effect": -0.013201875737434142
+    },
+    "cbd | boosted | 2024-03-31": {
+      "daily_mape": 0.061903432229310704,
+      "weekly_mape": 0.04107842237589396,
+      "placebo_effect": -0.003736116126908955
+    },
+    "cbd | boosted | 2024-06-30": {
+      "daily_mape": 0.07139803663696846,
+      "weekly_mape": 0.04893694488877531,
+      "placebo_effect": -0.014121270840696119
+    },
+    "cbd | regression | 2023-09-30": {
+      "daily_mape": 0.07562131988106152,
+      "weekly_mape": 0.05415674834841542,
+      "placebo_effect": -0.009644381109851058
+    },
+    "cbd | regression | 2023-12-31": {
+      "daily_mape": 0.07284909104720068,
+      "weekly_mape": 0.05351324932780796,
+      "placebo_effect": -0.01369608368060411
+    },
+    "cbd | regression | 2024-03-31": {
+      "daily_mape": 0.07883824441543813,
+      "weekly_mape": 0.06398073619184705,
+      "placebo_effect": -0.0011335797773539091
+    },
+    "cbd | regression | 2024-06-30": {
+      "daily_mape": 0.09027536292922421,
+      "weekly_mape": 0.07370048932919326,
+      "placebo_effect": -0.013171531746185608
+    },
+    "cbd | seasonal_naive | 2023-09-30": {
+      "daily_mape": 0.05754989191756339,
+      "weekly_mape": 0.03458594889843406,
+      "placebo_effect": -0.00012350632301562657
+    },
+    "cbd | seasonal_naive | 2023-12-31": {
+      "daily_mape": 0.07411939686025844,
+      "weekly_mape": 0.051322078500363535,
+      "placebo_effect": 0.00011113731566283217
+    },
+    "cbd | seasonal_naive | 2024-03-31": {
+      "daily_mape": 0.08287522422832547,
+      "weekly_mape": 0.05755637574650021,
+      "placebo_effect": 0.0006530429110147165
+    },
+    "cbd | seasonal_naive | 2024-06-30": {
+      "daily_mape": 0.0963030710080847,
+      "weekly_mape": 0.06751348985362503,
+      "placebo_effect": -0.006386385432082835
+    },
+    "manhattan | boosted | 2023-09-30": {
+      "daily_mape": 0.047358301450585144,
+      "weekly_mape": 0.03030827976529698,
+      "placebo_effect": -0.02286851613474079
+    },
+    "manhattan | boosted | 2023-12-31": {
+      "daily_mape": 0.051770356176937066,
+      "weekly_mape": 0.03354297826469561,
+      "placebo_effect": -0.027113090469083848
+    },
+    "manhattan | boosted | 2024-03-31": {
+      "daily_mape": 0.047249795033444425,
+      "weekly_mape": 0.02535029338556407,
+      "placebo_effect": -0.014747709319273614
+    },
+    "manhattan | boosted | 2024-06-30": {
+      "daily_mape": 0.05068447216889551,
+      "weekly_mape": 0.022718566856573665,
+      "placebo_effect": -0.015219809187675739
+    },
+    "manhattan | regression | 2023-09-30": {
+      "daily_mape": 0.053005124516941546,
+      "weekly_mape": 0.03529098215294944,
+      "placebo_effect": -0.022542195364393714
+    },
+    "manhattan | regression | 2023-12-31": {
+      "daily_mape": 0.05225051555810423,
+      "weekly_mape": 0.03553422196589059,
+      "placebo_effect": -0.027589824675322467
+    },
+    "manhattan | regression | 2024-03-31": {
+      "daily_mape": 0.05188797029980825,
+      "weekly_mape": 0.033691612496474746,
+      "placebo_effect": -0.01217608836831509
+    },
+    "manhattan | regression | 2024-06-30": {
+      "daily_mape": 0.0587292942286746,
+      "weekly_mape": 0.036938268941498854,
+      "placebo_effect": -0.014202795703221326
+    },
+    "manhattan | seasonal_naive | 2023-09-30": {
+      "daily_mape": 0.06236640097059906,
+      "weekly_mape": 0.05172611282492559,
+      "placebo_effect": 0.048670420680412656
+    },
+    "manhattan | seasonal_naive | 2023-12-31": {
+      "daily_mape": 0.06653998212546212,
+      "weekly_mape": 0.05323839572342993,
+      "placebo_effect": 0.04727197230695731
+    },
+    "manhattan | seasonal_naive | 2024-03-31": {
+      "daily_mape": 0.06793237310862867,
+      "weekly_mape": 0.04793514769748161,
+      "placebo_effect": 0.043326048920212086
+    },
+    "manhattan | seasonal_naive | 2024-06-30": {
+      "daily_mape": 0.07142890939915829,
+      "weekly_mape": 0.04259398388805811,
+      "placebo_effect": 0.038219936468620666
+    }
+  },
+  "cbd_weekly_mape_chosen": 0.04046352352305437,
+  "placebo_noise_max_abs": 0.014121270840696119,
+  "backtest_gap_mean": {
+    "cbd": -0.010315598927793906,
+    "manhattan": -0.0199872812776935,
+    "cbd_minus_manhattan": 0.009888159625324244
+  },
+  "backtest_gap_relative_range": [
+    0.0011155162920910566,
+    0.01429890215950902
+  ],
+  "gap_2025_net_of_backtest": {
+    "cbd": 0.0031150952934242415,
+    "manhattan": -0.009672483045393698,
+    "cbd_minus_manhattan": 0.01289319236962072
+  },
+  "band_95_weekly_log": 0.12445464982417746,
+  "weeks_outside_95_band": 0.023255813953488372,
+  "gap_2025": {
+    "cbd": -0.007232637708038542,
+    "manhattan": -0.02946643768380518,
+    "cbd_minus_manhattan": 0.02290884193917564
+  },
+  "gap_2026": {
+    "cbd": -0.039993105522810726,
+    "manhattan": -0.04178721380649435,
+    "cbd_minus_manhattan": 0.0018723485112430716
+  }
+}

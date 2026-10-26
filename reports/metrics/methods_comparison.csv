@@ -1,0 +1,9 @@
+method,accounts_for_trend,effect,low,high,note
+DiD: 2025 vs 2024,False,-0.026266427436976564,-0.04033777875649576,-0.01198875047123075,95% CI
+DiD: 2024 vs 2023 (no toll),False,-0.04381621489324614,-0.052685989422762675,-0.03486339197710592,95% CI; placebo
+Synthetic control (standard),False,-0.0666151371498164,,,placebo p = 0.18
+DiD with zone trends,True,0.009928734127698164,-0.002519309073474346,0.022532122470834602,95% CI; fake dates: typical ±4.3%
+"DiD, two-step (pre-toll zone trends)",True,0.011991551098932074,-0.0009787434313957707,0.02513023898335258,95% CI; fake dates: typical ±4.2%
+Forecast: CBD vs its own forecast,True,-0.007232637708038542,-0.02135390854873466,0.006888633132657577,± largest no-toll backtest gap; +0.3% net of backtest bias
+Forecast: CBD gap minus Manhattan gap,True,0.02290884193917564,,,+1.3% net of backtest bias
+Synthetic control (trend-adjusted),True,0.0028162639251757236,,,placebo p = 0.93

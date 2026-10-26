@@ -1,0 +1,192 @@
+{
+  "quick_2025_vs_2024": {
+    "effect": -0.026266427436976564,
+    "ci_low": -0.04033777875649576,
+    "ci_high": -0.01198875047123075,
+    "p_value": 0.000338420179552815,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "placebo_2024_vs_2023": {
+    "effect": -0.04381621489324614,
+    "ci_low": -0.052685989422762675,
+    "ci_high": -0.03486339197710592,
+    "p_value": 4.389782916912818e-21,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "main_trend_adjusted_year1": {
+    "effect": 0.009928734127698164,
+    "ci_low": -0.002519309073474346,
+    "ci_high": 0.022532122470834602,
+    "p_value": 0.11844637776842978,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "trend_adjusted_year2_2026": {
+    "effect": -0.0355481913403031,
+    "ci_low": -0.059745888935710825,
+    "ci_high": -0.010727759356362854,
+    "p_value": 0.005239715991314776,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "placebo_trend_adjusted_2024": {
+    "effect": 0.019805025763770683,
+    "ci_low": 0.008755628308281763,
+    "ci_high": 0.03097545271411765,
+    "p_value": 0.00041814062341346967,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "fake_dates": {
+    "dates": [
+      "2023-07-03",
+      "2023-07-31",
+      "2023-08-28",
+      "2023-09-25",
+      "2023-10-23",
+      "2023-11-20",
+      "2023-12-18"
+    ],
+    "quick_rms": 0.06358832522024914,
+    "trend_adjusted_rms": 0.04310804802289657,
+    "two_step_rms": 0.04197661235734076,
+    "quick_range": [
+      -0.07139382884128617,
+      -0.05205955797470792
+    ],
+    "trend_adjusted_range": [
+      -0.0555618669596926,
+      0.07920917267482594
+    ]
+  },
+  "pre_trend_per_year": -0.03675883093408829,
+  "two_step_pre_trend_year1": {
+    "effect": 0.011991551098932074,
+    "ci_low": -0.0009787434313957707,
+    "ci_high": 0.02513023898335258,
+    "p_value": 0.07011311843983063,
+    "treated_zones": 38,
+    "comparison_zones": 22
+  },
+  "fee_share_of_fare_2025": 0.043075761740618106,
+  "fee_per_trip_2025": {
+    "Uber/Lyft": 1.4727267473887526,
+    "Yellow taxi": 0.7379391966006916
+  },
+  "other_outcomes": {
+    "Taxi + Uber/Lyft | Trips (main estimate)": {
+      "effect": 0.009928734127698164,
+      "ci_low": -0.002519309073474346,
+      "ci_high": 0.022532122470834602,
+      "placebo_2024": 0.019805025763770683,
+      "fake_rms": 0.04310804802289657,
+      "fake_max_abs": 0.07920917267482594,
+      "clear": false
+    },
+    "Uber/Lyft | Trips in car-toll peak hours": {
+      "effect": 0.01988689436631935,
+      "ci_low": 0.006475019385496658,
+      "ci_high": 0.03347749051461925,
+      "placebo_2024": 0.016738585095166906,
+      "fake_rms": 0.028314546368920692,
+      "fake_max_abs": 0.05503165824971968,
+      "clear": false
+    },
+    "Uber/Lyft | Trips overnight (car toll $2.25)": {
+      "effect": 0.004986653750721145,
+      "ci_low": -0.017053853626000343,
+      "ci_high": 0.02752137331517573,
+      "placebo_2024": 0.008183478015167747,
+      "fake_rms": 0.0554102766083821,
+      "fake_max_abs": 0.07208705080751653,
+      "clear": false
+    },
+    "Uber/Lyft | Shared-ride requests": {
+      "effect": -0.12734932897705764,
+      "ci_low": -0.17689197294031098,
+      "ci_high": -0.07482472700807621,
+      "placebo_2024": 0.06208415594876064,
+      "fake_rms": 0.031249019750672936,
+      "fake_max_abs": 0.06325525400855875,
+      "clear": true
+    },
+    "Uber/Lyft | Average trip speed": {
+      "effect": 0.0495763689099311,
+      "ci_low": 0.042379105351723255,
+      "ci_high": 0.056823327058581466,
+      "placebo_2024": 0.011095631565539712,
+      "fake_rms": 0.017237542613526367,
+      "fake_max_abs": 0.035223261982791125,
+      "clear": true
+    },
+    "Uber/Lyft | Trip duration": {
+      "effect": -0.05173430509440813,
+      "ci_low": -0.0586773834020949,
+      "ci_high": -0.04474001550640506,
+      "placebo_2024": -0.04790935840791549,
+      "fake_rms": 0.023296667767708116,
+      "fake_max_abs": 0.04682874281189767,
+      "clear": false
+    },
+    "Uber/Lyft | Fare per trip (before fees and tips)": {
+      "effect": -0.028895384451367523,
+      "ci_low": -0.04003111972764417,
+      "ci_high": -0.01763047352920105,
+      "placebo_2024": -0.04443134040913239,
+      "fake_rms": 0.03149475691869556,
+      "fake_max_abs": 0.05154522392413381,
+      "clear": false
+    },
+    "Uber/Lyft | Driver pay per hour on trip": {
+      "effect": 0.02662018200028115,
+      "ci_low": 0.022667124085970634,
+      "ci_high": 0.030588520220867138,
+      "placebo_2024": 0.00047933103338608507,
+      "fake_rms": 0.010167853278843422,
+      "fake_max_abs": 0.022067183254428867,
+      "clear": true
+    },
+    "Uber/Lyft | Wait from request to pickup": {
+      "effect": -0.05659126788910507,
+      "ci_low": -0.07717140420785774,
+      "ci_high": -0.03555217092172308,
+      "placebo_2024": 0.011605783924932932,
+      "fake_rms": 0.03652169979814346,
+      "fake_max_abs": 0.06662057570484778,
+      "clear": false
+    },
+    "Yellow taxi | Average trip speed": {
+      "effect": 0.04391355115720634,
+      "ci_low": 0.03001822727348727,
+      "ci_high": 0.057996328059445816,
+      "placebo_2024": 0.012426889470176764,
+      "fake_rms": 0.018180034507817685,
+      "fake_max_abs": 0.043556017462513856,
+      "clear": true
+    },
+    "Yellow taxi | Trip duration": {
+      "effect": -0.07621065033891636,
+      "ci_low": -0.09007422602760756,
+      "ci_high": -0.06213585002468565,
+      "placebo_2024": -0.06409763711221968,
+      "fake_rms": 0.03026982232661234,
+      "fake_max_abs": 0.056025839504574036,
+      "clear": false
+    },
+    "Yellow taxi | Fare per trip (before fees and tips)": {
+      "effect": -0.053249762272620564,
+      "ci_low": -0.065356963083848,
+      "ci_high": -0.040985726920618026,
+      "placebo_2024": -0.056312623116075364,
+      "fake_rms": 0.022526055777564738,
+      "fake_max_abs": 0.04947210392727424,
+      "clear": false
+    }
+  },
+  "robustness_trend_adjusted_range": [
+    -0.013436056725796336,
+    0.011991551098932074
+  ]
+}

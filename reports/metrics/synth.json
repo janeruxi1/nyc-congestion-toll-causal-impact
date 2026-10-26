@@ -1,0 +1,20 @@
+{
+  "n_donors": 186,
+  "standard_effect_2025": -0.0666151371498164,
+  "standard_rmspe_pre": 0.041782271051933155,
+  "standard_pre_gap_by_year": {
+    "2023": 0.022976728367081554,
+    "2024": -0.02253486820618588
+  },
+  "standard_p_value": 0.1774193548387097,
+  "trend_adjusted_effect_2025": 0.0028162639251757236,
+  "trend_adjusted_rmspe_pre": 0.034793289255202975,
+  "trend_adjusted_p_value": 0.9301075268817204,
+  "top_weights_standard": {
+    "Williamsburg (North Side)": 0.3620861484933159,
+    "DUMBO/Vinegar Hill": 0.17470277825521927,
+    "Yorkville West": 0.13818601742284367,
+    "Gowanus": 0.13483651121674378,
+    "Upper East Side North": 0.13098847851116815
+  }
+}

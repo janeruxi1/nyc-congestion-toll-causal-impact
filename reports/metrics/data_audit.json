@@ -1,0 +1,20 @@
+{
+  "first_month": "2022-01",
+  "last_month": "2026-08",
+  "rows_raw": 1296931116,
+  "trips_kept": 1288695819,
+  "kept_share": 0.9936501662282579,
+  "n_cbd_zones": 38,
+  "n_border_zones": 6,
+  "cbd_fee_share_min": 0.902,
+  "outside_fee_share_max": 0.035,
+  "fee_trips_before_policy": 1573,
+  "through_trip_share_manhattan": 0.04773476163922679,
+  "through_trip_share_outer": 0.010879298774866078,
+  "cbd_origin_fee_share_2025": {
+    "green": 0.005754212905877518,
+    "hvfhv": 0.9910805521262618,
+    "yellow": 0.9917732585447508
+  },
+  "fees_2025_usd": 148727362.0
+}
