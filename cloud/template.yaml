@@ -1,0 +1,147 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  NYC congestion toll study - the TLC aggregation on Amazon S3 + Athena.
+  One private bucket, an Athena workgroup with a per-query scan cap, a Glue
+  database, a monthly cost budget with email alerts, and a least-privilege
+  policy for running the pipeline without admin rights.
+
+Parameters:
+  BudgetEmail:
+    Type: String
+    Description: Email address for the cost alerts
+  MonthlyBudgetUSD:
+    Type: Number
+    Default: 10
+    Description: Alert at 80% of this actual spend and at 100% forecast
+  MaxBytesScannedPerQuery:
+    Type: Number
+    Default: 53687091200
+    Description: Athena cancels any query that would scan more than this (default 50 GiB, about $0.25)
+  DatabaseName:
+    Type: String
+    Default: tlc
+    AllowedPattern: "[a-z][a-z0-9_]*"
+
+Resources:
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-query-results
+            Prefix: athena-results/
+            Status: Enabled
+            ExpirationInDays: 7
+          - Id: abort-incomplete-uploads
+            Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+
+  WorkGroup:
+    Type: AWS::Athena::WorkGroup
+    Properties:
+      Name: !Ref AWS::StackName
+      Description: TLC aggregation for the congestion toll study
+      RecursiveDeleteOption: true
+      WorkGroupConfiguration:
+        EnforceWorkGroupConfiguration: true
+        PublishCloudWatchMetricsEnabled: true
+        BytesScannedCutoffPerQuery: !Ref MaxBytesScannedPerQuery
+        EngineVersion:
+          SelectedEngineVersion: Athena engine version 3
+        ResultConfiguration:
+          OutputLocation: !Sub "s3://${DataBucket}/athena-results/"
+          EncryptionConfiguration:
+            EncryptionOption: SSE_S3
+
+  Database:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: !Ref DatabaseName
+        Description: Raw TLC trip files (external tables) for the congestion toll study
+
+  Budget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub "${AWS::StackName}-monthly"
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit:
+          Amount: !Ref MonthlyBudgetUSD
+          Unit: USD
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 80
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref BudgetEmail
+        - Notification:
+            NotificationType: FORECASTED
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: !Ref BudgetEmail
+
+  # Everything scripts/cloud_run.py needs, and nothing more. Attach it to a
+  # role or user to run the pipeline from a laptop or CI without admin rights.
+  RunnerPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Run the congestion-toll Athena pipeline
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: OwnBucket
+            Effect: Allow
+            Action: [s3:GetObject, s3:PutObject, s3:DeleteObject, s3:AbortMultipartUpload]
+            Resource: !Sub "${DataBucket.Arn}/*"
+          - Sid: OwnBucketList
+            Effect: Allow
+            Action: [s3:ListBucket, s3:GetBucketLocation]
+            Resource: !GetAtt DataBucket.Arn
+          - Sid: ReadPublicTlcData
+            Effect: Allow
+            Action: [s3:GetObject, s3:ListBucket]
+            Resource: ["arn:aws:s3:::nyc-tlc", "arn:aws:s3:::nyc-tlc/*"]
+          - Sid: Athena
+            Effect: Allow
+            Action: [athena:StartQueryExecution, athena:GetQueryExecution, athena:GetQueryResults,
+                     athena:StopQueryExecution, athena:GetWorkGroup]
+            Resource: !Sub "arn:aws:athena:${AWS::Region}:${AWS::AccountId}:workgroup/${WorkGroup}"
+          - Sid: GlueCatalog
+            Effect: Allow
+            Action: [glue:GetDatabase, glue:GetTable, glue:GetTables, glue:CreateTable,
+                     glue:UpdateTable, glue:DeleteTable, glue:GetPartitions]
+            Resource:
+              - !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:catalog"
+              - !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:database/${DatabaseName}"
+              - !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:table/${DatabaseName}/*"
+          - Sid: ReadStackOutputs
+            Effect: Allow
+            Action: cloudformation:DescribeStacks
+            Resource: !Ref AWS::StackId
+
+Outputs:
+  BucketName:
+    Value: !Ref DataBucket
+  WorkGroup:
+    Value: !Ref WorkGroup
+  Database:
+    Value: !Ref DatabaseName
+  RunnerPolicyArn:
+    Value: !Ref RunnerPolicy

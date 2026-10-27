@@ -1,0 +1,7 @@
+# Only what scripts/cloud_run.py needs (AWS CloudShell has 1 GB of home space,
+# so the analysis and app requirements are left out).
+boto3>=1.34,<2
+pandas>=2.1,<4
+pyarrow>=14,<30
+duckdb>=1.1,<3
+sqlglot>=25,<31

@@ -219,6 +219,17 @@ better supply.
   relative tolerance 1e-4).
 * Notebooks are written as `.py` (percent format) and built into executed `.ipynb` files by
   `scripts/build_notebooks.py --execute`.
+* **The pipeline at scale on AWS** ([`cloud/README.md`](../cloud/README.md)). The aggregation is
+  also written as Athena SQL over the raw files in S3, with the infrastructure in one
+  CloudFormation template. Decisions:
+  * one source of truth: the SQL is generated from the constants in `etl.py` and `zones.py`; a test
+    translates it to DuckDB (sqlglot) and checks it against the laptop ETL, and the cloud run is
+    reconciled with the committed aggregates for every service and month;
+  * schema drift found by reading all 168 file footers first (zone ids INT64 then INT32 from
+    February 2023, the fee column only from 2025) and absorbed in the table definitions;
+  * partition projection instead of a crawler; a per-query scan cap, expiring query results and a
+    cost budget as guardrails; three passes over the data (about $0.30) kept over a cheaper but
+    harder-to-test intermediate table.
 
 ---
 

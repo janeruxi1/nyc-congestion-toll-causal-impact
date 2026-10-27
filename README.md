@@ -134,6 +134,7 @@ The app reads only the committed aggregates (36 MB) and calls the tested code in
 ```
 ├── app/streamlit_app.py          # interactive demo (5 tabs)
 ├── .streamlit/config.toml        # app theme
+├── cloud/                        # the same aggregation on AWS S3 + Athena: CloudFormation, SQL, guide
 ├── docs/PHASES.md                # the project phase by phase: question, method, decisions, results
 ├── data/
 │   ├── processed/                # zone_day.parquet, group_hour.parquet, audit.csv (committed)
@@ -142,14 +143,16 @@ The app reads only the committed aggregates (36 MB) and calls the tested code in
 ├── reports/
 │   ├── decision_memo.md
 │   ├── PROJECT_SUMMARY.md
+│   ├── cloud/                    # the AWS run: cost, timings, reconciliation with the laptop build
 │   ├── figures/                  # every figure, written by the notebooks
 │   └── metrics/                  # every number, written by the notebooks
 ├── scripts/
 │   ├── build_data.py             # TLC download + DuckDB aggregation (resumable)
 │   ├── derive_cbd_zones.py       # CBD zone list from the fee data
 │   ├── build_notebooks.py        # .py -> .ipynb, optionally executed
+│   ├── cloud_run.py              # AWS: copy raw files, build with Athena, compare, tear down
 │   └── check_metrics.py          # re-run results match the committed ones
-├── src/congestion/               # zones, etl, panel, did, forecast, synth, plots
+├── src/congestion/               # zones, etl, athena, panel, did, forecast, synth, plots
 └── tests/                        # pytest: ETL, methods on simulated data, reported numbers, app
 ```
 
@@ -162,8 +165,19 @@ for nb in notebooks/0*.py; do python "$nb"; done   # all results from the commit
 python scripts/build_data.py --first 2022-01 --last 2026-08   # optional: rebuild the aggregates (~30 GB download)
 ```
 
+### At scale on AWS
+
+The same aggregation also runs on Amazon S3 + Athena: the 168 raw files go to S3, three
+SQL queries per service reduce 1.3 billion trips, and the output is compared with the
+committed aggregates, service by service and month by month. The stack (private bucket,
+Athena workgroup with a scan cap, cost budget, least-privilege policy) is one CloudFormation
+template. The Athena SQL is generated from the same zone lists and cleaning rules as the
+DuckDB pipeline and tested against it. Set-up, costs (under $1 a run) and design choices:
+[`cloud/README.md`](cloud/README.md).
+
 CI runs lint, the tests, every notebook, a check that the `.ipynb` files match their `.py`
-sources, and a check that the re-computed results match the committed `reports/metrics/`. A
+sources (and the Athena SQL files match their generator), and a check that the re-computed
+results match the committed `reports/metrics/`. A
 test also checks that the numbers quoted in this README, the memo and the summary match those
 files.
 

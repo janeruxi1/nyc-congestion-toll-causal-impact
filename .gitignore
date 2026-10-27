@@ -12,5 +12,8 @@ data/raw/*
 !data/raw/README.md
 data/interim/
 
+# Results downloaded from Athena by scripts/cloud_run.py (checked, then compared)
+data/cloud/
+
 # Private notes (not pushed to GitHub)
 reports/prep/

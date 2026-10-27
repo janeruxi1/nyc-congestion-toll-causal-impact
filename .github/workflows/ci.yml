@@ -22,6 +22,8 @@ jobs:
         run: pytest -q
       - name: Notebooks match their .py sources
         run: python scripts/build_notebooks.py --check
+      - name: Athena SQL files match their generator
+        run: python scripts/cloud_run.py sql --check
       - name: Re-run every notebook on the committed aggregates
         env:
           MPLBACKEND: Agg
