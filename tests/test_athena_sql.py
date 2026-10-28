@@ -81,6 +81,9 @@ def test_raw_table_ddl_layout():
     assert "LOCATION 's3://my-bucket/raw/hvfhv/'" in ddl
     assert "'storage.location.template' = 's3://my-bucket/raw/hvfhv/month=${month}/'" in ddl
     assert "`PULocationID` bigint" in ddl            # INT64 before Feb 2023, INT32 after
+    # Athena DDL is Hive syntax: only these column types, and varchar would need a length
+    hive_types = {"timestamp", "bigint", "double", "string"}
+    assert all(t in hive_types for svc in RAW_COLUMNS.values() for _, t in svc)
     assert raw_key("hvfhv", "2025-01") == "raw/hvfhv/month=2025-01/fhvhv_tripdata_2025-01.parquet"
     sqlglot.parse_one(zone_day_sql("hvfhv", "tlc.raw_hvfhv"), read="trino")  # valid Trino
 

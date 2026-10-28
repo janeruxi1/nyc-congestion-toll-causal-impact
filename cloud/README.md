@@ -55,7 +55,7 @@ flowchart LR
 |---|---|
 | Athena scans: 9 queries, about 60 GB in total at $5 per TB | about $0.30 |
 | S3 storage: 30 GB of raw files | about $0.70 per month, $0 after teardown |
-| Copy from the public bucket (same region) | free transfer, a fraction of a cent in requests |
+| Copy into S3 (from AWS's public copy, or the TLC download site if that is not readable) | free: data into AWS is not charged; a few cents in requests |
 | Table definitions (DDL), CloudFormation | free |
 
 Measured figures from the run are in `reports/cloud/cloud_run.json`.
@@ -74,8 +74,21 @@ a laptop.
    *Users* → *Create user*, tick *Provide user access to the AWS Management
    Console*, attach the policy `AdministratorAccess`, then sign out and sign
    in as that user and give it MFA too.
-4. Switch the region (top right) to **US East (N. Virginia) us-east-1**, where
-   the public TLC bucket lives, so copies cost nothing in transfer.
+4. Pick the region (top right). Use **US East (N. Virginia) us-east-1** if
+   your account allows it: AWS's copy of the TLC files lives there. New
+   accounts created through AWS's newer sign-up flow can only use regional
+   services such as Athena in the one region chosen for the account (other
+   regions return `explicit deny in a service control policy`). Find it in
+   CloudShell with:
+
+   ```bash
+   for r in us-east-1 us-east-2 us-west-1 us-west-2; do
+     aws athena list-work-groups --region $r --output text >/dev/null 2>&1 && echo "use $r"
+   done
+   ```
+
+   Switch the console to the region it prints. CloudShell and every command
+   below then use it automatically.
 
 ### 2. Deploy the stack (about 2 minutes)
 
@@ -84,7 +97,7 @@ Open **CloudShell** (the `>_` icon in the console's top bar), then:
 ```bash
 git clone https://github.com/janeruxi1/nyc-congestion-toll-causal-impact.git
 cd nyc-congestion-toll-causal-impact
-pip3 install --user -r cloud/requirements.txt
+pip3 install -r cloud/requirements.txt
 
 aws cloudformation deploy \
   --template-file cloud/template.yaml \

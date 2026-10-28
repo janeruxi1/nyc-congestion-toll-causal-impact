@@ -14,7 +14,8 @@ Schema drift in the raw files (checked on all 168 files' footers):
 * `cbd_congestion_fee` only exists from January 2025. Athena reads Parquet
   columns by name, so earlier files return NULL, treated as 0 below.
 * The shared-ride flags change from STRING to LARGE_STRING in February 2023;
-  both are Parquet BYTE_ARRAY and read as VARCHAR.
+  both are Parquet BYTE_ARRAY and read as `string` (Athena's table DDL is
+  Hive syntax, where `varchar` needs a length).
 """
 from __future__ import annotations
 
@@ -40,8 +41,8 @@ RAW_COLUMNS: dict[str, list[tuple[str, str]]] = {
         ("request_datetime", "timestamp"),
         ("PULocationID", "bigint"), ("DOLocationID", "bigint"),
         ("base_passenger_fare", "double"), ("tips", "double"), ("trip_miles", "double"),
-        ("driver_pay", "double"), ("shared_request_flag", "varchar"),
-        ("shared_match_flag", "varchar"), ("cbd_congestion_fee", "double"),
+        ("driver_pay", "double"), ("shared_request_flag", "string"),
+        ("shared_match_flag", "string"), ("cbd_congestion_fee", "double"),
     ],
 }
 

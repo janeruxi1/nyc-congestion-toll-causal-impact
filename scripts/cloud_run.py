@@ -23,6 +23,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import os
 import sys
 import time
 import urllib.request
@@ -305,7 +306,8 @@ def main() -> None:
     ap.add_argument("step", choices=["all", "copy", "tables", "build", "compare", "teardown", "sql"])
     ap.add_argument("--check", action="store_true", help="with sql: fail if cloud/sql/ is stale")
     ap.add_argument("--stack", default="tlc-athena")
-    ap.add_argument("--region", default="us-east-1")
+    ap.add_argument("--region", default=os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION")
+                    or "us-east-1", help="default: the current CloudShell / CLI region")
     ap.add_argument("--first", default="2022-01")
     ap.add_argument("--last", default="2026-08")
     args = ap.parse_args()

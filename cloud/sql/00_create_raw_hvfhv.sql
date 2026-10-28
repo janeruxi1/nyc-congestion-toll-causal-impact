@@ -9,8 +9,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS tlc.raw_hvfhv (
   `tips` double,
   `trip_miles` double,
   `driver_pay` double,
-  `shared_request_flag` varchar,
-  `shared_match_flag` varchar,
+  `shared_request_flag` string,
+  `shared_match_flag` string,
   `cbd_congestion_fee` double
 )
 PARTITIONED BY (`month` string)
