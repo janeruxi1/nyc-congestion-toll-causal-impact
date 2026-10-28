@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 METRICS = ROOT / "reports" / "metrics"
 DOCS = {name: (ROOT / path).read_text(encoding="utf-8")
         for name, path in [("readme", "README.md"), ("memo", "reports/decision_memo.md"),
-                           ("summary", "reports/PROJECT_SUMMARY.md"), ("phases", "docs/PHASES.md")]}
+                           ("summary", "reports/PROJECT_SUMMARY.md"), ("phases", "docs/PHASES.md"),
+                           ("cloud", "cloud/README.md")]}
 
 
 def m(name):
@@ -28,6 +29,7 @@ def pct(x, signed=True):
 
 
 did, fc, sc, audit, summ = m("did"), m("forecast"), m("synth"), m("data_audit"), m("summary")
+cloud = json.loads((ROOT / "reports" / "cloud" / "cloud_run.json").read_text())
 other = {(r["service"], r["outcome"]): r for r in csv.DictReader(open(METRICS / "did_other_outcomes.csv"))}
 
 
@@ -114,6 +116,15 @@ CHECKS = [(("phases",), x) for x in PHASES_CHECKS] + [
     (("summary",), f"{audit['through_trip_share_manhattan'] * 100:.1f}% of rest-of-Manhattan"),
     (("summary",), f"{audit['through_trip_share_outer'] * 100:.1f}% of outer-borough"),
     (("summary",), f"at most {audit['outside_fee_share_max'] * 100:.1f}% outside"),
+    # the AWS run (reports/cloud/cloud_run.json, written by scripts/cloud_run.py)
+    (("readme", "cloud", "phases"), f"{cloud['totals']['scanned_gb']:.1f} GB"),
+    (("readme", "cloud", "phases"), f"{cloud['totals']['query_minutes']:.1f} minutes"),
+    (("readme", "cloud", "phases"), f"${cloud['totals']['athena_cost_usd']:.2f}"),
+    (("readme", "cloud", "phases"),
+     f"{cloud['compare']['service_months_matching']} of {cloud['compare']['service_months_checked']}"),
+    (("readme", "cloud"), f"{cloud['copy']['raw_bytes'] / 1e9:.1f} GB"),
+    (("cloud",), f"{cloud['compare']['zone_day_rows']:,} zone-day rows"),
+    (("cloud",), f"{cloud['compare']['group_hour_rows']:,} group-hour rows"),
 ]
 
 
@@ -130,3 +141,11 @@ def test_only_clear_outcomes_are_claimed():
         assert other[key]["clear"] == "True", key
     assert other[("Uber/Lyft", "Wait from request to pickup")]["clear"] == "False"
     assert other[("Taxi + Uber/Lyft", "Trips (main estimate)")]["clear"] == "False"
+
+
+def test_cloud_run_matches_the_laptop_build():
+    """The recorded AWS run reproduced every committed aggregate (see cloud/README.md)."""
+    rec = list(csv.DictReader(open(ROOT / "reports" / "cloud" / "reconciliation.csv")))
+    assert cloud["compare"]["all_match"] and not cloud["compare"]["mismatches"]
+    assert len(rec) == cloud["compare"]["service_months_checked"] and all(r["match"] == "True" for r in rec)
+    assert cloud["compare"]["trips_kept"] == audit["trips_kept"]

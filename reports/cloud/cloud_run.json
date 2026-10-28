@@ -1,0 +1,105 @@
+{
+  "stack": "tlc-athena",
+  "region": "us-east-2",
+  "months": "2022-01 to 2026-08",
+  "engine": "Athena engine version 3",
+  "price_per_tb_usd": 5.0,
+  "copy": {
+    "files": 168,
+    "raw_bytes": 30435734247,
+    "sources": {
+      "TLC download site": 168
+    }
+  },
+  "wall_minutes_last_step": 4.0,
+  "totals": {
+    "queries": 9,
+    "scanned_gb": 51.97,
+    "athena_cost_usd": 0.236,
+    "query_minutes": 3.8
+  },
+  "queries": [
+    {
+      "query": "zone_day yellow",
+      "id": "f1889a51-1755-43bb-af10-c1d18d6c768f",
+      "scanned_bytes": 2747754957,
+      "billed_bytes": 2747754957,
+      "engine_seconds": 12.469,
+      "total_seconds": 12.896
+    },
+    {
+      "query": "zone_day green",
+      "id": "2e50f680-c028-4b4f-a54e-4f30341dc920",
+      "scanned_bytes": 65782630,
+      "billed_bytes": 65782630,
+      "engine_seconds": 5.34,
+      "total_seconds": 5.514
+    },
+    {
+      "query": "zone_day hvfhv",
+      "id": "9ebc1897-8eb0-4577-887a-faa768a9d683",
+      "scanned_bytes": 18779902383,
+      "billed_bytes": 18779902383,
+      "engine_seconds": 58.42,
+      "total_seconds": 58.663
+    },
+    {
+      "query": "group_hour yellow",
+      "id": "80a15ed5-44a7-4104-82f8-42340a8c7161",
+      "scanned_bytes": 2537796377,
+      "billed_bytes": 2537796377,
+      "engine_seconds": 11.007,
+      "total_seconds": 11.215
+    },
+    {
+      "query": "group_hour green",
+      "id": "ff5c5cdc-276d-4f94-9b59-abca1ff86447",
+      "scanned_bytes": 62206834,
+      "billed_bytes": 62206834,
+      "engine_seconds": 3.034,
+      "total_seconds": 3.17
+    },
+    {
+      "query": "group_hour hvfhv",
+      "id": "0708648d-75b3-47bf-9e12-12ad33e20df0",
+      "scanned_bytes": 14983148940,
+      "billed_bytes": 14983148940,
+      "engine_seconds": 52.053,
+      "total_seconds": 52.223
+    },
+    {
+      "query": "audit yellow",
+      "id": "f1590451-b67b-47cc-9efe-e7988d9309ab",
+      "scanned_bytes": 2181897149,
+      "billed_bytes": 2181897149,
+      "engine_seconds": 12.94,
+      "total_seconds": 13.089
+    },
+    {
+      "query": "audit green",
+      "id": "cd3fff6d-7506-4a7f-b975-77d8ecc9bf85",
+      "scanned_bytes": 56722064,
+      "billed_bytes": 56722064,
+      "engine_seconds": 3.362,
+      "total_seconds": 3.534
+    },
+    {
+      "query": "audit hvfhv",
+      "id": "21aca5f8-5dfc-4782-9a63-b853a9cdd6d0",
+      "scanned_bytes": 10558356123,
+      "billed_bytes": 10558356123,
+      "engine_seconds": 66.019,
+      "total_seconds": 66.193
+    }
+  ],
+  "run_at": "2026-10-28 03:56 UTC",
+  "compare": {
+    "service_months_checked": 504,
+    "service_months_matching": 504,
+    "all_match": true,
+    "zone_day_rows": 1012708,
+    "group_hour_rows": 592253,
+    "trips_kept": 1288695819,
+    "mismatches": []
+  }
+}
