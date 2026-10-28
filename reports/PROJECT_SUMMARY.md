@@ -32,6 +32,7 @@ CBD trip, and the forecast check rules out a price elasticity much stronger than
 | Forecast | Seasonal naive, regression with weather and holidays, and LightGBM on the regression's residuals; four rolling-origin backtests with no toll; gaps net of backtest bias | `src/congestion/forecast.py`, notebook 04 |
 | Synthetic control | 186 donor zones, non-negative weights, standard and trend-adjusted, placebo in space | `src/congestion/synth.py`, notebook 05 |
 | Summary | Methods side by side, price-elasticity bounds, hero figure | notebook 06 |
+| AWS run | The same aggregation as Athena SQL over the raw files in S3 (CloudFormation stack); 9 queries, 52.0 GB scanned for $0.24; 504 of 504 table × service × month checks match the local build | `cloud/`, `scripts/cloud_run.py`, `reports/cloud/` |
 | Phases | How the project was built, step by step, with the design choices and objections | `docs/PHASES.md` |
 
 ## Headline numbers
@@ -87,8 +88,10 @@ attributed to the toll. Uber/Lyft trips at car-toll peak hours and overnight sho
 
 ## Engineering
 
-* `pytest`: ETL on a hand-built file with known answers, zone groups, DiD / event study / forecast /
-  synthetic control recovering known effects on simulated panels, the reported numbers, and an app
-  smoke test.
-* CI: lint, tests, every notebook re-run on the committed aggregates, `.ipynb` files checked against
-  their `.py` sources, and re-computed metrics compared with the committed ones.
+* `pytest`: ETL on a hand-built file with known answers, zone groups, the Athena SQL against the
+  DuckDB ETL (translated with sqlglot), DiD / event study / forecast / synthetic control recovering
+  known effects on simulated panels, the reported numbers, and an app smoke test.
+* CI: lint, tests, every notebook re-run on the committed aggregates, `.ipynb` and Athena SQL files
+  checked against their sources, and re-computed metrics compared with the committed ones.
+* AWS: the recorded Athena run reproduces every committed aggregate (`reports/cloud/`); the first
+  run found, and the SQL now handles, a one-second difference in how DuckDB and Athena count time.

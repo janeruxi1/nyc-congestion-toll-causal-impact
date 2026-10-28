@@ -15,7 +15,7 @@ project answers them. Numbers come from `reports/metrics/` and are checked by
 | 5 | What would 2025 have looked like without the toll? | notebook 04, `src/congestion/forecast.py` |
 | 6 | Does a synthetic twin of the CBD agree? | notebook 05, `src/congestion/synth.py` |
 | 7 | Do the methods agree, and what does it mean for pricing? | notebook 06, decision memo |
-| 8 | Can anyone rerun it and get the same numbers? | `tests/`, CI, `scripts/check_metrics.py` |
+| 8 | Can anyone rerun it and get the same numbers, locally and in the cloud? | `tests/`, CI, `scripts/check_metrics.py`, `cloud/` |
 | 9 | Can a non-technical reader explore it? | `app/streamlit_app.py` |
 | 10 | Review: what was strengthened, and what is left | this page |
 
@@ -212,8 +212,8 @@ better supply.
 
 * `pytest`: the ETL on hand-built files with known answers; zone groups (Python and SQL agree); DiD,
   event study, two-step trends, forecast and synthetic control each recovering a planted effect on
-  simulated data; every number quoted in the README, memo, summary and this page against
-  `reports/metrics/`; and the app.
+  simulated data; the Athena SQL against the DuckDB ETL; every number quoted in the README, memo,
+  summary, this page and `cloud/README.md` against the recorded results; and the app.
 * CI: lint; tests; `.ipynb` files match their `.py` sources; every notebook re-run on the committed
   aggregates; the re-computed results compared with the committed ones (`scripts/check_metrics.py`,
   relative tolerance 1e-4).
@@ -228,8 +228,13 @@ better supply.
   * schema drift found by reading all 168 file footers first (zone ids INT64 then INT32 from
     February 2023, the fee column only from 2025) and absorbed in the table definitions;
   * partition projection instead of a crawler; a per-query scan cap, expiring query results and a
-    cost budget as guardrails; three passes over the data (about $0.30) kept over a cheaper but
+    cost budget as guardrails; three passes over the data kept over a cheaper but
     harder-to-test intermediate table.
+  * Result: 9 queries scanned 52.0 GB in 3.8 minutes for $0.24, and 504 of 504 table × service ×
+    month checks match the laptop build. The first run matched 501 of 504: a few timestamps carry
+    fractions of a second, which DuckDB and Athena count differently (second boundaries vs whole
+    seconds elapsed), leaving 3 sums one second apart. Timestamps are now truncated to the second,
+    with a test for the case.
 
 ---
 
@@ -276,6 +281,8 @@ Python 3.12, no secrets); steps in the README.
    study) and trips by time of day (no clear change).
 6. *Business translation:* the fee's share of the fare and the implied bound on price elasticity.
 7. *Interpretation:* the trips-versus-demand caveat added to the README and memo.
+8. *Scale and portability:* the aggregation runs on AWS S3 + Athena from one CloudFormation
+   template, reconciled with the local build for every service and month (Phase 8).
 
 **Left for later.**
 * *Sensitivity to parallel-trend violations* in the style of Rambachan & Roth ("HonestDiD"):

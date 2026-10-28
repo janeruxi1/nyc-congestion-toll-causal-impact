@@ -32,6 +32,13 @@ flowchart LR
   with the committed aggregates. Before any AWS run, the translated SQL was
   also checked on three real months (yellow 2022-01, green 2023-02, Uber/Lyft
   2025-01): identical rows and counts.
+- **The check found a real difference.** The first full run matched 501 of
+  504 table × service × month checks. Every count agreed; 3 sums were one
+  second (1/60 of a minute) apart. About 30 Uber/Lyft timestamps carry
+  fractions of a second, and DuckDB's `date_diff` counts second boundaries
+  crossed while Athena's counts whole seconds elapsed. The SQL now truncates
+  timestamps to the second, a test reproduces the case, and the second run
+  matched 504 of 504.
 - **Schema drift handled in the table definition.** Reading the footers of all
   168 files showed zone ids stored as INT64 until January 2023 and INT32 after,
   the fee column only from January 2025, and the shared-ride flags changing
@@ -49,16 +56,26 @@ flowchart LR
   Writing a cleaned intermediate table would save about $0.20 per run;
   three independent queries are simpler to test and re-run.
 
+## Measured run
+
+From [`reports/cloud/cloud_run.json`](../reports/cloud/cloud_run.json), run in US East (Ohio):
+
+| | |
+|---|---|
+| Raw files copied to S3 | 168 files, 30.4 GB (from the TLC download site) |
+| Athena queries | 9, scanning 52.0 GB in 3.8 minutes of query time |
+| Athena cost | $0.24 at $5 per TB scanned |
+| Output | 1,012,708 zone-day rows, 592,253 group-hour rows, 168 audit rows |
+| Reconciliation with the laptop build | 504 of 504 table × service × month checks match ([`reconciliation.csv`](../reports/cloud/reconciliation.csv)) |
+
 ## Cost
 
-| Item | Estimate |
+| Item | Cost |
 |---|---|
-| Athena scans: 9 queries, about 60 GB in total at $5 per TB | about $0.30 |
+| Athena scans: 9 queries, 52.0 GB | $0.24 (measured) |
 | S3 storage: 30 GB of raw files | about $0.70 per month, $0 after teardown |
 | Copy into S3 (from AWS's public copy, or the TLC download site if that is not readable) | free: data into AWS is not charged; a few cents in requests |
 | Table definitions (DDL), CloudFormation | free |
-
-Measured figures from the run are in `reports/cloud/cloud_run.json`.
 
 ## Run it
 

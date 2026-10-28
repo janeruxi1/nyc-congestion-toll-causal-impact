@@ -42,3 +42,7 @@ the same sums. Groups: `cbd`, `border` (the six 60th Street zones), `manhattan_n
 trips.
 
 Sums are kept rather than averages so that any grouping can be re-aggregated exactly.
+
+The same three tables can also be built in the cloud, with Amazon Athena over the raw files in S3
+(`scripts/cloud_run.py`, guide in [`cloud/README.md`](../cloud/README.md)). The recorded run matches
+these files for every service and month (`reports/cloud/reconciliation.csv`).

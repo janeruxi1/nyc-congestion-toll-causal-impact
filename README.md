@@ -172,8 +172,17 @@ SQL queries per service reduce 1.3 billion trips, and the output is compared wit
 committed aggregates, service by service and month by month. The stack (private bucket,
 Athena workgroup with a scan cap, cost budget, least-privilege policy) is one CloudFormation
 template. The Athena SQL is generated from the same zone lists and cleaning rules as the
-DuckDB pipeline and tested against it. Set-up, costs (under $1 a run) and design choices:
-[`cloud/README.md`](cloud/README.md).
+DuckDB pipeline and tested against it.
+
+The measured run (US East, Ohio): 168 files (30.4 GB) in S3; 9 Athena queries scanned
+52.0 GB in 3.8 minutes of query time for $0.24; and 504 of 504 table × service × month
+checks identical to the laptop build (every count exact, sums within the cents rounding of
+the committed files). The first run matched 501 of 504: about 30 timestamps carry
+fractions of a second, and the two engines count seconds differently (DuckDB counts second
+boundaries crossed, Athena whole seconds elapsed), so 3 sums were one second apart. The SQL now
+truncates timestamps to the second, and a test covers the case. Set-up, costs and design
+choices: [`cloud/README.md`](cloud/README.md); the run record:
+[`reports/cloud/`](reports/cloud/).
 
 CI runs lint, the tests, every notebook, a check that the `.ipynb` files match their `.py`
 sources (and the Athena SQL files match their generator), and a check that the re-computed
