@@ -111,3 +111,28 @@ def test_reconciliation_flags_every_kind_of_difference():
     assert rec["match"].tolist() == [True, False, False, False]
     assert rec.loc["2025-02", "max_count_diff"] == 1
     assert rec.loc["2025-04", "rows_only_committed"] == 1
+
+
+def test_fractional_seconds_count_like_duckdb(tmp_path):
+    """DuckDB's date_diff counts second boundaries, Trino's counts elapsed seconds.
+    A request at 10:00:00.9 and a pickup at 10:04:00.1 must give the same wait
+    (and durations the same minutes) in both pipelines."""
+    t = pd.Timestamp
+    df = pd.DataFrame({
+        "pickup_datetime": [t("2024-07-01 10:04:00.100"), t("2024-07-01 11:00:00")],
+        "dropoff_datetime": [t("2024-07-01 10:14:59.900"), t("2024-07-01 11:20:00.700")],
+        "request_datetime": [t("2024-07-01 10:00:00.900"), t("2024-07-01 10:58:59.200")],
+        "PULocationID": [74, 74], "DOLocationID": [161, 75],
+        "base_passenger_fare": [20.0, 15.0], "tips": [0.0, 1.0], "trip_miles": [3.0, 4.0],
+        "driver_pay": [15.0, 11.0], "shared_request_flag": ["N", "N"], "shared_match_flag": ["N", "N"],
+    })
+    path = tmp_path / "fhvhv_tripdata_2024-07.parquet"
+    df.to_parquet(path, index=False)
+    zd, gh, _ = aggregate_file(path, "hvfhv", "2024-07", duckdb.connect())
+    con = duckdb.connect()
+    table = athena_like_view(con, "hvfhv", path, "2024-07")
+    # Trino's elapsed-seconds date_diff, emulated in DuckDB on the translated SQL
+    sql = sqlglot.transpile(zone_day_sql("hvfhv", table), read="trino", write="duckdb")[0]
+    elapsed = sql.replace("DATE_DIFF('SECOND', ", "epoch_diff(")
+    con.execute("CREATE MACRO epoch_diff(a, b) AS floor(epoch(b) - epoch(a))")
+    same(zd, con.execute(elapsed).df(), ["date", "pu_zone"])

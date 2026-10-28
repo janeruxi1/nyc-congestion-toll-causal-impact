@@ -3,18 +3,18 @@ UNLOAD (
 WITH raw AS (
     SELECT
         month,
-        CAST(pickup_datetime AS timestamp)              AS pickup,
-        CAST(dropoff_datetime AS timestamp)             AS dropoff,
-        CAST(request_datetime AS timestamp)             AS request,
-        CAST(PULocationID AS integer)                   AS pu_zone,
-        CAST(DOLocationID AS integer)                   AS do_zone,
-        CAST(base_passenger_fare AS double)             AS fare,
-        CAST(coalesce(tips, 0) AS double)               AS tips,
-        CAST(driver_pay AS double)                      AS driver_pay,
-        CAST(trip_miles AS double)                      AS miles,
-        CAST(coalesce(cbd_congestion_fee, 0) AS double) AS fee,
-        (shared_request_flag = 'Y')                     AS shared_req,
-        (shared_match_flag = 'Y')                       AS shared_match
+        date_trunc('second', CAST(pickup_datetime AS timestamp))  AS pickup,
+        date_trunc('second', CAST(dropoff_datetime AS timestamp)) AS dropoff,
+        date_trunc('second', CAST(request_datetime AS timestamp)) AS request,
+        CAST(PULocationID AS integer)                             AS pu_zone,
+        CAST(DOLocationID AS integer)                             AS do_zone,
+        CAST(base_passenger_fare AS double)                       AS fare,
+        CAST(coalesce(tips, 0) AS double)                         AS tips,
+        CAST(driver_pay AS double)                                AS driver_pay,
+        CAST(trip_miles AS double)                                AS miles,
+        CAST(coalesce(cbd_congestion_fee, 0) AS double)           AS fee,
+        (shared_request_flag = 'Y')                               AS shared_req,
+        (shared_match_flag = 'Y')                                 AS shared_match
     FROM tlc.raw_hvfhv
 )
 SELECT 'hvfhv' AS service, month,

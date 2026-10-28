@@ -13,6 +13,11 @@ Schema drift in the raw files (checked on all 168 files' footers):
   reverse).
 * `cbd_congestion_fee` only exists from January 2025. Athena reads Parquet
   columns by name, so earlier files return NULL, treated as 0 below.
+* A few timestamps carry fractions of a second (30 Uber/Lyft trips in July
+  2024). DuckDB's date_diff counts second boundaries crossed, Trino's counts
+  whole seconds elapsed, so timestamps are truncated to the second first;
+  the two engines then agree exactly (found by the first cloud run, where
+  3 of 504 checks were off by one second in a minutes sum).
 * The shared-ride flags change from STRING to LARGE_STRING in February 2023;
   both are Parquet BYTE_ARRAY and read as `string` (Athena's table DDL is
   Hive syntax, where `varchar` needs a length).
@@ -106,9 +111,9 @@ def _standard_trips(service: str, table: str) -> str:
         shared_req = shared_match = "CAST(NULL AS boolean)"
     cols = [
         ("month", None),
-        (f"CAST({pickup} AS timestamp)", "pickup"),
-        (f"CAST({dropoff} AS timestamp)", "dropoff"),
-        (f"CAST({request} AS timestamp)", "request"),
+        (f"date_trunc('second', CAST({pickup} AS timestamp))", "pickup"),
+        (f"date_trunc('second', CAST({dropoff} AS timestamp))", "dropoff"),
+        (f"date_trunc('second', CAST({request} AS timestamp))", "request"),
         ("CAST(PULocationID AS integer)", "pu_zone"),
         ("CAST(DOLocationID AS integer)", "do_zone"),
         (f"CAST({fare} AS double)", "fare"),

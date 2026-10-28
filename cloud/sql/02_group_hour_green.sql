@@ -3,18 +3,18 @@ UNLOAD (
 WITH raw AS (
     SELECT
         month,
-        CAST(lpep_pickup_datetime AS timestamp)         AS pickup,
-        CAST(lpep_dropoff_datetime AS timestamp)        AS dropoff,
-        CAST(NULL AS timestamp)                         AS request,
-        CAST(PULocationID AS integer)                   AS pu_zone,
-        CAST(DOLocationID AS integer)                   AS do_zone,
-        CAST(fare_amount AS double)                     AS fare,
-        CAST(coalesce(tip_amount, 0) AS double)         AS tips,
-        CAST(NULL AS double)                            AS driver_pay,
-        CAST(trip_distance AS double)                   AS miles,
-        CAST(coalesce(cbd_congestion_fee, 0) AS double) AS fee,
-        CAST(NULL AS boolean)                           AS shared_req,
-        CAST(NULL AS boolean)                           AS shared_match
+        date_trunc('second', CAST(lpep_pickup_datetime AS timestamp))  AS pickup,
+        date_trunc('second', CAST(lpep_dropoff_datetime AS timestamp)) AS dropoff,
+        date_trunc('second', CAST(NULL AS timestamp))                  AS request,
+        CAST(PULocationID AS integer)                                  AS pu_zone,
+        CAST(DOLocationID AS integer)                                  AS do_zone,
+        CAST(fare_amount AS double)                                    AS fare,
+        CAST(coalesce(tip_amount, 0) AS double)                        AS tips,
+        CAST(NULL AS double)                                           AS driver_pay,
+        CAST(trip_distance AS double)                                  AS miles,
+        CAST(coalesce(cbd_congestion_fee, 0) AS double)                AS fee,
+        CAST(NULL AS boolean)                                          AS shared_req,
+        CAST(NULL AS boolean)                                          AS shared_match
     FROM tlc.raw_green
 ), clean AS (
     SELECT *,
