@@ -143,12 +143,16 @@ def fit_did_pre_trend(panel: pd.DataFrame, y: str = "log_trips", unit: str = "pu
 def event_study(panel: pd.DataFrame, y: str = "log_trips", unit: str = "pu_zone",
                 time: str = "week", treat: str = "treated", weights: str | None = None,
                 cluster: str = "pu_zone", policy_week: pd.Timestamp = pd.Timestamp("2025-01-06"),
-                bin_weeks: int = 4, ref_bin: int = -1) -> pd.DataFrame:
+                bin_weeks: int = 4, ref_bin: int = -1, return_vcov: bool = False):
     """Treated-minus-control gap in 4-week bins relative to the policy.
 
     Bin -1 (the four weeks before the toll) is the reference, so each
     coefficient reads as "how much bigger or smaller the gap is than just
     before the toll". Flat pre-policy coefficients support parallel trends.
+
+    With ``return_vcov=True`` it also returns the covariance of the bin
+    coefficients (reference bin excluded) and their bins, in order: the
+    input HonestDiD needs.
     """
     df = panel.dropna(subset=[y]).reset_index(drop=True)
     rel = ((df[time] - policy_week).dt.days // 7) // bin_weeks
@@ -172,6 +176,10 @@ def event_study(panel: pd.DataFrame, y: str = "log_trips", unit: str = "pu_zone"
     out["start_week"] = policy_week + pd.to_timedelta(out["bin"] * bin_weeks * 7, unit="D")
     for c in ("beta", "ci_low", "ci_high"):
         out[f"pct_{c}" if c != "beta" else "pct"] = np.expm1(out[c])
+    if return_vcov:
+        kept = [b for b in bins if b != ref_bin]
+        keys = [f"b{b}" for b in kept]
+        return out, res.cov_params().loc[keys, keys].to_numpy(), kept
     return out
 
 

@@ -40,6 +40,12 @@
    method finds "effects" of typically ±4%; the forecast misses by up to ±1.4% in no-toll
    backtests. The honest reading is **no detectable effect**, with three methods that fail in
    different ways all landing near zero.
+
+   Two stress tests (notebook 07) back this up. A wild cluster bootstrap gives the main estimate
+   an interval of −0.3% to +2.3%, almost the same as above. A sensitivity analysis in the style of
+   Rambachan and Roth asks how far the CBD's pre-toll trend would have had to bend to hide a real
+   drop: a drop of 5% or more stays ruled out unless the CBD's relative decline sped up by more than
+   131% of its pre-toll pace in exactly the toll year, for reasons other than the toll.
 3. **The toll changed how trips run and which rides people take, not how many trips there are.** Measured the same way, each at least
    twice the size of what the method finds on fake toll dates:
 
@@ -60,8 +66,9 @@
 
 * **Early 2026.** Against zone trends, CBD trips changed by −3.6% in January–August 2026. The forecast
   check shows the rest of Manhattan fell short of its forecast by about the same amount (CBD minus
-  Manhattan: +0.2%), so this looks Manhattan-wide rather than toll-specific. If the gap persists
-  into a second quarter, revisit recommendation 1.
+  Manhattan: +0.2%), so this looks Manhattan-wide rather than toll-specific. Extrapolating the
+  pre-toll years alone puts it on trend (−0.6% (−2.8% to +1.6%)). If the gap persists into a second quarter,
+  revisit recommendation 1.
 * **Hour of day.** The 2025 decline in Uber/Lyft trips from the CBD was largest overnight, when the
   car toll is lowest; this points away from the fee as its cause.
 

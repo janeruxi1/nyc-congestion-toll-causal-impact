@@ -283,11 +283,16 @@ Python 3.12, no secrets); steps in the README.
 7. *Interpretation:* the trips-versus-demand caveat added to the README and memo.
 8. *Scale and portability:* the aggregation runs on AWS S3 + Athena from one CloudFormation
    template, reconciled with the local build for every service and month (Phase 8).
+9. *Inference (notebook 07).* A wild cluster restricted bootstrap (Webb weights, 9,999 draws,
+   interval by test inversion) confirms the zone-clustered intervals: the main estimate's becomes
+   −0.3% to +2.3%. A HonestDiD sensitivity analysis on whole-toll-year event-study bins (quarterly bins
+   carry a summer pattern in the gap that a smoothness restriction would read as bends) shows a
+   drop of 5% or more stays ruled out until the allowed bend reaches 131% of the pre-toll
+   slope, while the year-2 decline is on the pre-toll trend (−0.6% (−2.8% to +1.6%)). Both methods are written
+   from scratch and tested: the bootstrap against brute-force refits, the worst-case bias against
+   the R package's formula, and the interval's coverage by simulation.
 
 **Left for later.**
-* *Sensitivity to parallel-trend violations* in the style of Rambachan & Roth ("HonestDiD"):
-  how large a departure from the pre-toll trend would overturn the conclusion.
-* *Wild cluster bootstrap* for the DiD intervals (60 clusters is adequate but not large).
 * *Trips into the CBD by destination* with exact fee status, and the MTA's vehicle-entry counts as
   a supply-side check (they start only in 2025).
 * *A second year of data:* re-run when the 2026 data is complete to settle whether the early-2026

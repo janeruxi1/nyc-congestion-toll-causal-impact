@@ -32,6 +32,7 @@ CBD trip, and the forecast check rules out a price elasticity much stronger than
 | Forecast | Seasonal naive, regression with weather and holidays, and LightGBM on the regression's residuals; four rolling-origin backtests with no toll; gaps net of backtest bias | `src/congestion/forecast.py`, notebook 04 |
 | Synthetic control | 186 donor zones, non-negative weights, standard and trend-adjusted, placebo in space | `src/congestion/synth.py`, notebook 05 |
 | Summary | Methods side by side, price-elasticity bounds, hero figure | notebook 06 |
+| Robust inference | Wild cluster restricted bootstrap; HonestDiD smoothness sensitivity with fixed-length intervals and break-down points | `src/congestion/inference.py`, notebook 07 |
 | AWS run | The same aggregation as Athena SQL over the raw files in S3 (CloudFormation stack); 9 queries, 52.0 GB scanned for $0.24; 504 of 504 table × service × month checks match the local build | `cloud/`, `scripts/cloud_run.py`, `reports/cloud/` |
 | Phases | How the project was built, step by step, with the design choices and objections | `docs/PHASES.md` |
 
@@ -55,6 +56,10 @@ CBD trip, and the forecast check rules out a price elasticity much stronger than
 | Forecast model accuracy (CBD, weekly MAPE, four backtests) | 4.0%; 2.3% of weeks outside the 95% band | 04 |
 | Synthetic control, standard | −6.7% (placebo p = 0.18) | 05 |
 | Synthetic control, trend-adjusted | +0.3% (placebo p = 0.93) | 05 |
+| Main estimate, wild cluster bootstrap interval | −0.3% to +2.3% | 07 |
+| HonestDiD, year 1, pre-toll trend continues exactly (M = 0) | +1.5% (+0.3% to +2.7%) | 07 |
+| HonestDiD: bend needed before a −5% drop fits the interval | 131% of the pre-toll slope | 07 |
+| HonestDiD, year 2 (Jan–Aug 2026), M = 0 | −0.6% (−2.8% to +1.6%) | 07 |
 
 ## Other outcomes (trend-adjusted DiD, year 1, each at least twice its fake-date effects)
 
@@ -83,7 +88,7 @@ attributed to the toll. Uber/Lyft trips at car-toll peak hours and overnight sho
 
 1. `README.md` → this page → `reports/decision_memo.md`
 2. Notebook 02 (the trend that a quick comparison misses), then 03 (main estimate)
-3. Notebooks 04 and 05 (independent checks), 06 (side by side)
+3. Notebooks 04 and 05 (independent checks), 06 (side by side), 07 (how far the answer can move)
 4. Notebook 01 and `data/README.md` for the data and the zone list
 
 ## Engineering

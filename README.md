@@ -30,6 +30,10 @@ toll dates in 2023, the main method finds "effects" of typically ±4.3%; the for
 backtests miss by up to ±1.4%. So the claim is "no detectable effect", not "exactly zero". A
 decline in early 2026 (−3.6%) looks Manhattan-wide in the forecast check; it is flagged to
 watch, not attributed to the toll.
+**Stress tests:** a wild cluster bootstrap leaves the main interval almost unchanged
+(−0.3% to +2.3%). A HonestDiD sensitivity analysis shows that a toll-driven drop of 5% or more stays
+ruled out unless the CBD's relative decline sped up, in the toll year itself, by more than
+131% of its pre-toll pace.
 
 ![Summary](reports/figures/06_hero_summary.png)
 
@@ -74,6 +78,7 @@ paid (38 zones; 6 zones on the 60th Street border are left out as a "donut"). Se
 | [04 Forecast counterfactual](notebooks/04_forecast_counterfactual.ipynb) | What would 2025 have looked like without the toll? | Seasonal naive vs regression vs LightGBM on residuals, four rolling-origin backtests with no-toll test periods, 80/95% intervals, gaps net of backtest bias |
 | [05 Synthetic control](notebooks/05_synthetic_control.ipynb) | Does a weighted twin of the CBD agree? | Constrained least squares over 186 donor zones, standard and trend-adjusted, placebo-in-space p-values |
 | [06 Results summary](notebooks/06_results_summary.ipynb) | Do the methods agree? How price-sensitive is demand? | Side-by-side estimates, price-elasticity bounds, the summary figure |
+| [07 Robust inference](notebooks/07_robust_inference.ipynb) | Can the intervals be trusted? What if the trend bent? | Wild cluster restricted bootstrap (Webb weights, test inversion); HonestDiD smoothness sensitivity (Rambachan & Roth) with fixed-length intervals and break-down points |
 
 ### Results at a glance (year one, trips starting in the CBD)
 
@@ -93,6 +98,26 @@ no-toll placebo year; every estimate that accounts for it sits near zero.** On f
 in 2023 the quick DiD finds a drop every time (−5.2% to −7.1%); the trend-adjusted DiD has no
 such bias but scatters (−5.6% to +7.9%), which is why the forecast and synthetic control checks
 matter.
+
+### How robust is that? (notebook 07)
+
+* **The intervals are not the weak point.** With 60 zone clusters of very unequal size, a wild
+  cluster restricted bootstrap (9,999 draws) widens the DiD intervals by at most 6% and changes
+  no conclusion: the main estimate's interval is −0.3% to +2.3%.
+* **The design is, so it gets a sensitivity analysis.** HonestDiD (Rambachan & Roth) replaces
+  "the CBD's relative decline continues in a straight line" with "its slope changes by at most
+  M a year". Before the toll the gap fell by about 4.3 log points a year. With no bend, the
+  year-one effect is +1.5% (+0.3% to +2.7%); a bend of 11% of that slope already brings zero into the
+  interval, so there is no robust increase either.
+* **The useful number is the break-down point.** A drop of 5% or more, the size an early study
+  found, stays outside the interval until the allowed bend reaches 131% of the pre-toll slope:
+  the CBD's decline would have had to more than double its pace in exactly the toll year, for
+  other reasons, to hide it.
+* **Year 2 is fragile.** Extrapolating the pre-toll years alone puts January–August 2026 on trend
+  (−0.6% (−2.8% to +1.6%)), against −3.6% from the zone-trend model, and a bend of a quarter of the slope widens
+  it to −5.9% to +4.9%. It stays a pattern to watch.
+
+![HonestDiD](reports/figures/07_honestdid.png)
 
 ## Recommendation (from the [decision memo](reports/decision_memo.md))
 
@@ -139,7 +164,7 @@ The app reads only the committed aggregates (36 MB) and calls the tested code in
 ├── data/
 │   ├── processed/                # zone_day.parquet, group_hour.parquet, audit.csv (committed)
 │   └── reference/                # taxi zones, CBD zone evidence, Central Park weather
-├── notebooks/                    # 01-06, .py sources (run in CI) + executed .ipynb
+├── notebooks/                    # 01-07, .py sources (run in CI) + executed .ipynb
 ├── reports/
 │   ├── decision_memo.md
 │   ├── PROJECT_SUMMARY.md
@@ -152,7 +177,7 @@ The app reads only the committed aggregates (36 MB) and calls the tested code in
 │   ├── build_notebooks.py        # .py -> .ipynb, optionally executed
 │   ├── cloud_run.py              # AWS: copy raw files, build with Athena, compare, tear down
 │   └── check_metrics.py          # re-run results match the committed ones
-├── src/congestion/               # zones, etl, athena, panel, did, forecast, synth, plots
+├── src/congestion/               # zones, etl, athena, panel, did, inference, forecast, synth, plots
 └── tests/                        # pytest: ETL, methods on simulated data, reported numbers, app
 ```
 
@@ -195,7 +220,8 @@ files.
 * **Observational.** There is no randomized control group. The main estimate assumes each zone
   would have kept its 2023–2024 trend; on fake toll dates this produces "effects" of typically
   ±4%, much wider than the formal confidence interval. The three methods agreeing near zero is
-  stronger evidence than any one interval.
+  stronger evidence than any one interval, and notebook 07 states how large a bend in the trend
+  would be needed to change the answer.
 * **Trips, not demand.** The records show completed trips, which reflect both riders and
   drivers. Faster trips let the same drivers serve more rides, so a small drop in rider demand
   could be hidden by better supply. Requests are not observed for taxis, and unfulfilled

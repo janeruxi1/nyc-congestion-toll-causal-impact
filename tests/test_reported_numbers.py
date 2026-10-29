@@ -29,6 +29,19 @@ def pct(x, signed=True):
 
 
 did, fc, sc, audit, summ = m("did"), m("forecast"), m("synth"), m("data_audit"), m("summary")
+rob = m("robust_inference")
+_boot = {r["specification"]: r for r in rob["wild_bootstrap"]["rows"]}["main: trend-adjusted, year 1"]
+_hd = rob["honestdid"]
+_y1 = {r["bend_as_share_of_pre_slope"]: r for r in _hd["intervals"] if r["target"].startswith("year 1")}
+_y2 = {r["bend_as_share_of_pre_slope"]: r for r in _hd["intervals"] if r["target"].startswith("year 2")}
+
+
+def _share(key):
+    return f"{_hd['breakdown'][key]['share_of_pre_slope'] * 100:.0f}%"
+
+
+def _est(r):
+    return f"{pct(r['estimate'])} ({pct(r['low'])} to {pct(r['high'])})"
 cloud = json.loads((ROOT / "reports" / "cloud" / "cloud_run.json").read_text())
 other = {(r["service"], r["outcome"]): r for r in csv.DictReader(open(METRICS / "did_other_outcomes.csv"))}
 
@@ -116,6 +129,15 @@ CHECKS = [(("phases",), x) for x in PHASES_CHECKS] + [
     (("summary",), f"{audit['through_trip_share_manhattan'] * 100:.1f}% of rest-of-Manhattan"),
     (("summary",), f"{audit['through_trip_share_outer'] * 100:.1f}% of outer-borough"),
     (("summary",), f"at most {audit['outside_fee_share_max'] * 100:.1f}% outside"),
+    # robust inference (notebook 07)
+    (("readme", "memo", "summary", "phases"), f"{pct(_boot['boot_low'])} to {pct(_boot['boot_high'])}"),
+    (("readme", "memo", "summary", "phases"), _share("year1_rule_out_minus5pct")),
+    (("readme",), _share("year1_exclude_zero")),
+    (("readme", "summary"), _est(_y1[0.0])),
+    (("readme", "memo", "summary", "phases"), _est(_y2[0.0])),
+    (("readme",), f"{pct(_y2[0.25]['low'])} to {pct(_y2[0.25]['high'])}"),
+    (("readme",), f"at most {max(r['widening'] for r in rob['wild_bootstrap']['rows']) * 100:.0f}%"),
+    (("readme",), f"about {abs(_hd['pre_slope_log_points_per_year']['whole_years']) * 100:.1f} log points"),
     # the AWS run (reports/cloud/cloud_run.json, written by scripts/cloud_run.py)
     (("readme", "cloud", "phases"), f"{cloud['totals']['scanned_gb']:.1f} GB"),
     (("readme", "cloud", "phases"), f"{cloud['totals']['query_minutes']:.1f} minutes"),

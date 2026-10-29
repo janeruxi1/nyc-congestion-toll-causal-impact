@@ -1,0 +1,195 @@
+{
+  "wild_bootstrap": {
+    "n_boot": 9999,
+    "weights": "webb",
+    "clusters": 60,
+    "rows": [
+      {
+        "specification": "quick: 2025 vs 2024",
+        "effect": -0.026266,
+        "analytic_low": -0.040338,
+        "analytic_high": -0.011989,
+        "p_analytic": 0.000338,
+        "boot_low": -0.041411,
+        "boot_high": -0.011356,
+        "p_boot": 0.002,
+        "widening": 0.060163
+      },
+      {
+        "specification": "quick placebo: 2024 vs 2023 (no toll)",
+        "effect": -0.043816,
+        "analytic_low": -0.052686,
+        "analytic_high": -0.034863,
+        "p_analytic": 0.0,
+        "boot_low": -0.053086,
+        "boot_high": -0.034467,
+        "p_boot": 0.0,
+        "widening": 0.044697
+      },
+      {
+        "specification": "main: trend-adjusted, year 1",
+        "effect": 0.009929,
+        "analytic_low": -0.002519,
+        "analytic_high": 0.022532,
+        "p_analytic": 0.118446,
+        "boot_low": -0.003161,
+        "boot_high": 0.023102,
+        "p_boot": 0.135514,
+        "widening": 0.04838
+      },
+      {
+        "specification": "trend-adjusted, year 2 (Jan-Aug 2026)",
+        "effect": -0.035548,
+        "analytic_low": -0.059746,
+        "analytic_high": -0.010728,
+        "p_analytic": 0.00524,
+        "boot_low": -0.060782,
+        "boot_high": -0.010138,
+        "p_boot": 0.007001,
+        "widening": 0.033174
+      },
+      {
+        "specification": "trend-adjusted placebo, 2024",
+        "effect": 0.019805,
+        "analytic_low": 0.008756,
+        "analytic_high": 0.030975,
+        "p_analytic": 0.000418,
+        "boot_low": 0.008162,
+        "boot_high": 0.031598,
+        "p_boot": 0.0007,
+        "widening": 0.054754
+      }
+    ]
+  },
+  "honestdid": {
+    "restriction": "Delta^SD(M), fixed-length confidence intervals",
+    "bins": "52-week toll years; year 2 uses the first 34 weeks of every year",
+    "pre_slope_log_points_per_year": {
+      "whole_years": -0.042785,
+      "jan_aug": -0.047226
+    },
+    "event_study_whole_years": {
+      "-2": 0.043713,
+      "-1": 0.0,
+      "0": -0.027464
+    },
+    "event_study_jan_aug": {
+      "-2": 0.048359,
+      "-1": 0.0,
+      "0": -0.026375,
+      "1": -0.095883
+    },
+    "intervals": [
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 0.0,
+        "M": 0.0,
+        "estimate": 0.015048,
+        "low": 0.002822,
+        "high": 0.027423
+      },
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 0.25,
+        "M": 0.010696,
+        "estimate": 0.015048,
+        "low": -0.005912,
+        "high": 0.03645
+      },
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 0.5,
+        "M": 0.021392,
+        "estimate": 0.015048,
+        "low": -0.016488,
+        "high": 0.047596
+      },
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 0.75,
+        "M": 0.032088,
+        "estimate": 0.015048,
+        "low": -0.026952,
+        "high": 0.058861
+      },
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 1.0,
+        "M": 0.042785,
+        "estimate": 0.015048,
+        "low": -0.037304,
+        "high": 0.070248
+      },
+      {
+        "target": "year 1 (2025)",
+        "bend_as_share_of_pre_slope": 1.5,
+        "M": 0.064177,
+        "estimate": 0.015048,
+        "low": -0.05768,
+        "high": 0.093389
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 0.0,
+        "M": 0.0,
+        "estimate": -0.006324,
+        "low": -0.028202,
+        "high": 0.016046
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 0.25,
+        "M": 0.011806,
+        "estimate": -0.006324,
+        "low": -0.058657,
+        "high": 0.048917
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 0.5,
+        "M": 0.023613,
+        "estimate": -0.006324,
+        "low": -0.091415,
+        "high": 0.086735
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 0.75,
+        "M": 0.035419,
+        "estimate": -0.006324,
+        "low": -0.123033,
+        "high": 0.125916
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 1.0,
+        "M": 0.047226,
+        "estimate": -0.006324,
+        "low": -0.153551,
+        "high": 0.16651
+      },
+      {
+        "target": "year 2 (Jan-Aug 2026)",
+        "bend_as_share_of_pre_slope": 1.5,
+        "M": 0.070839,
+        "estimate": -0.006324,
+        "low": -0.211438,
+        "high": 0.252142
+      }
+    ],
+    "breakdown": {
+      "year1_rule_out_minus5pct": {
+        "M": 0.05606,
+        "share_of_pre_slope": 1.310293
+      },
+      "year1_exclude_zero": {
+        "M": 0.004722,
+        "share_of_pre_slope": 0.11037
+      },
+      "year2_exclude_zero": {
+        "M": 0.0,
+        "share_of_pre_slope": 0.0
+      }
+    }
+  }
+}
