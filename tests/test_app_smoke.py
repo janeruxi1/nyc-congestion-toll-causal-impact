@@ -55,3 +55,22 @@ def test_fake_toll_date_reproduces_notebook(app):
     values = {m.label: m.value for m in app.metric}
     assert values["Trend-adjusted DiD"] == f"{float(rows['2023-10-23']['trend_adjusted']):+.1%}"
     assert values["Quick DiD (no trends)"] == f"{float(rows['2023-10-23']['quick']):+.1%}"
+
+
+def test_bend_tab_reproduces_notebook_07(app):
+    """The live HonestDiD intervals match notebook 07's record, and the break-down point flips the verdict."""
+    rob = json.loads((ROOT / "reports" / "metrics" / "robust_inference.json").read_text())
+    rec = {(r["target"], r["bend_as_share_of_pre_slope"]): r for r in rob["honestdid"]["intervals"]}
+    for share in (0, 50, 100):
+        app.slider(key="bend_share").set_value(share).run()
+        assert not app.exception, app.exception
+        values = {m.label: m.value for m in app.metric}
+        r1, r2 = rec[("year 1 (2025)", share / 100)], rec[("year 2 (Jan-Aug 2026)", share / 100)]
+        assert values["Year 1 (2025): range of effects"] == f"{r1['low']:+.1%} to {r1['high']:+.1%}"
+        assert values["Year 2 (Jan-Aug 2026): range of effects"] == f"{r2['low']:+.1%} to {r2['high']:+.1%}"
+    bd = rob["honestdid"]["breakdown"]["year1_rule_out_minus5pct"]["share_of_pre_slope"]
+    below, above = int(bd * 100) // 5 * 5, (int(bd * 100) // 5 + 1) * 5
+    app.slider(key="bend_share").set_value(below).run()
+    assert {m.label: m.value for m in app.metric}["A 5% drop in year 1"] == "ruled out"
+    app.slider(key="bend_share").set_value(above).run()
+    assert {m.label: m.value for m in app.metric}["A 5% drop in year 1"] == "possible"

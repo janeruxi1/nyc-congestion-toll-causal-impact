@@ -242,7 +242,7 @@ better supply.
 
 **Question.** Can someone who will never open a notebook see the answer, check it, and poke at it?
 
-**What was built** (`app/streamlit_app.py`, five tabs):
+**What was built** (`app/streamlit_app.py`, six tabs):
 * **The answer:** the result in four numbers (trips, speed, driver pay per hour, shared rides), why a
   quick before/after comparison misleads, every method side by side, the outcomes that clear the
   fake-date bar (a switch shows the ones that do not), and the pricing view (fee share, elasticity
@@ -254,6 +254,8 @@ better supply.
   numbers, so a reader does not mistake them for causal estimates.
 * **Forecast vs actual:** weekly trips against the no-toll forecast and its backtest bands.
 * **Try a fake toll date:** reruns both DiD designs live on any Monday from July 2023 to January 2024.
+* **How far can it bend?** (added with notebook 07): a slider for the allowed bend in the pre-toll
+  trend recomputes the HonestDiD intervals live; the wild cluster bootstrap table sits below.
 
 **Decisions.** The app reads only committed aggregates and the metrics the notebooks wrote, and calls
 the same tested functions, so it cannot drift from the analysis. Every chart has a one-line caption

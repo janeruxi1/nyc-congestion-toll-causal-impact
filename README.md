@@ -142,6 +142,8 @@ toll rises from $9 to $12 in 2028.
 * **🔮 Forecast vs actual:** the no-toll forecast with its bands, week by week
 * **🧪 Try a fake toll date:** run the same DiD on any Monday from July 2023 to January 2024 and see how
   much "effect" each design finds when nothing happened
+* **📐 How far can it bend?:** a slider for how much the pre-toll trend may bend; the HonestDiD
+  intervals for years 1 and 2 are recomputed live, next to the wild cluster bootstrap results
 
 The app reads only the committed aggregates (36 MB) and calls the tested code in `src/congestion/`.
 
@@ -157,7 +159,7 @@ The app reads only the committed aggregates (36 MB) and calls the tested code in
 ## Repository layout
 
 ```
-├── app/streamlit_app.py          # interactive demo (5 tabs)
+├── app/streamlit_app.py          # interactive demo (6 tabs)
 ├── .streamlit/config.toml        # app theme
 ├── cloud/                        # the same aggregation on AWS S3 + Athena: CloudFormation, SQL, guide
 ├── docs/PHASES.md                # the project phase by phase: question, method, decisions, results

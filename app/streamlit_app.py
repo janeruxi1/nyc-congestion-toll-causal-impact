@@ -6,6 +6,7 @@ Tabs:
     3. Explore a zone        -- one neighbourhood's trips, speed and fees before and after
     4. Forecast vs actual    -- the no-toll forecast with its backtest bands
     5. Try a fake toll date  -- the same DiD on a date when nothing happened
+    6. How far can it bend?  -- HonestDiD sensitivity and the wild cluster bootstrap (notebook 07)
 
 Reads only the committed aggregates in data/processed and the results the
 notebooks wrote to reports/metrics, and calls the tested code in src/congestion.
@@ -24,9 +25,10 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 
-from congestion.did import fit_did  # noqa: E402
+from congestion.did import event_study, fit_did  # noqa: E402
+from congestion.inference import flci_sd  # noqa: E402
 from congestion.panel import (  # noqa: E402
-    load_zone_day, week_start, window, zone_week_panel,
+    FIRST_POST_WEEK, WINDOW_START, YEAR1_END, load_zone_day, week_start, window, zone_week_panel,
 )
 from congestion.zones import CBD_ZONES, zone_group  # noqa: E402
 
@@ -126,6 +128,33 @@ def zone_year(zone: int, services: tuple[str, ...], year: int) -> pd.Series:
 
 
 @st.cache_data(show_spinner=False)
+def honest_inputs() -> dict:
+    """Notebook 07's two event studies in whole toll years: the coefficients without the
+    reference year, their covariance and the number of pre-toll years."""
+    p = main_panel()
+    es_panel = window(p, WINDOW_START, p["week"].max())
+    week_in_year = ((es_panel["week"] - FIRST_POST_WEEK).dt.days // 7) % 52
+    n_matched = int(week_in_year[es_panel["week"] >= "2026-01-05"].max()) + 1
+    out = {}
+    for name, panel, l_post in (("year1", es_panel[es_panel["week"] <= YEAR1_END], [1.0]),
+                                ("year2", es_panel[week_in_year < n_matched], [0.0, 1.0])):
+        es, vcov, bins = event_study(panel, weights="pre_mean_trips", policy_week=FIRST_POST_WEEK,
+                                     bin_weeks=52, return_vcov=True)
+        beta = es.set_index("bin").loc[bins, "beta"].to_numpy()
+        out[name] = {"beta": beta, "vcov": vcov, "n_pre": sum(b < 0 for b in bins), "l_post": np.array(l_post),
+                     "slope": float(-es.set_index("bin").loc[-2, "beta"])}
+    return out
+
+
+@st.cache_data(show_spinner=False)
+def honest_interval(target: str, share: float) -> dict:
+    h = honest_inputs()[target]
+    r = flci_sd(h["beta"], h["vcov"], h["n_pre"], h["l_post"], share * abs(h["slope"]))
+    return {"estimate": float(np.expm1(r["estimate"])), "low": float(np.expm1(r["lb"])),
+            "high": float(np.expm1(r["ub"]))}
+
+
+@st.cache_data(show_spinner=False)
 def fake_toll(start: str) -> dict:
     """DiD on pre-toll data only, pretending the toll started on `start`."""
     p = main_panel()
@@ -163,14 +192,17 @@ with st.expander("ℹ️ How to use this demo"):
 4. **🔮 Forecast vs actual**: the zone's trips against a forecast built only from pre-toll data.
 5. **🧪 Try a fake toll date**: run the same analysis on a date when nothing happened, to see how
    much "effect" each method finds by chance.
+6. **📐 How far can it bend?**: how much the CBD's pre-toll trend would have to change before the
+   answer changes (a HonestDiD sensitivity analysis), and a bootstrap check of the intervals.
 
 **CBD** = the toll zone (Manhattan's Central Business District). **DiD** = difference-in-differences:
 how much more the CBD changed than a comparison area.
 """
     )
 
-tab_answer, tab_trends, tab_zone, tab_fc, tab_fake = st.tabs(
-    ["🏁 The answer", "📈 Trends", "🔎 Explore a zone", "🔮 Forecast vs actual", "🧪 Try a fake toll date"])
+tab_answer, tab_trends, tab_zone, tab_fc, tab_fake, tab_bend = st.tabs(
+    ["🏁 The answer", "📈 Trends", "🔎 Explore a zone", "🔮 Forecast vs actual", "🧪 Try a fake toll date",
+     "📐 How far can it bend?"])
 
 # =====================================================================
 # TAB 1 -- THE ANSWER
@@ -516,6 +548,72 @@ with tab_fake:
         "rule out a small real effect. That is why the forecast and synthetic-control checks matter: "
         "all three land near zero for the real toll."
     )
+
+# =====================================================================
+# TAB 6 -- HOW FAR CAN IT BEND? (notebook 07)
+# =====================================================================
+with tab_bend:
+    rob = metrics("robust_inference")
+    hd = rob["honestdid"]
+    slope = abs(hd["pre_slope_log_points_per_year"]["whole_years"])
+    st.markdown(
+        "The main estimate assumes the CBD's share of trips would have kept falling **in a straight line**, "
+        f"at about {slope * 100:.1f}% a year as it did before the toll. What if that decline had sped up or "
+        "slowed down in 2025 for reasons that have nothing to do with the toll? HonestDiD (Rambachan & Roth) "
+        "lets the trend **bend** by up to a chosen amount a year and reports every effect still consistent "
+        "with the data. Drag the slider to choose how much bending to allow."
+    )
+    share = st.slider("Allowed bend in the pre-toll trend, as % of its slope per year", 0, 150, 0, step=5,
+                      key="bend_share", format="%d%%") / 100
+    y1, y2 = honest_interval("year1", share), honest_interval("year2", share)
+    b1, b2, b3 = st.columns(3)
+    b1.metric("Year 1 (2025): range of effects", f"{pct(y1['low'])} to {pct(y1['high'])}", border=True,
+              help=f"95% interval (fixed-length, as in the R package). Point estimate {pct(y1['estimate'])}.")
+    b2.metric("Year 2 (Jan-Aug 2026): range of effects", f"{pct(y2['low'])} to {pct(y2['high'])}", border=True,
+              help=f"Same months in every year, so seasons match. Point estimate {pct(y2['estimate'])}.")
+    rules_out = y1["low"] > -0.05
+    b3.metric("A 5% drop in year 1", "ruled out" if rules_out else "possible", border=True,
+              help="An early study found about −6% for Uber/Lyft in the first 14 weeks.")
+    bd = hd["breakdown"]["year1_rule_out_minus5pct"]["share_of_pre_slope"]
+    st.caption(
+        f"A drop of 5% or more stays ruled out until the allowed bend reaches **{bd:.0%}** of the pre-toll slope: "
+        "the CBD's decline would have had to more than double its pace in exactly the toll year to hide it."
+    )
+
+    grid = pd.DataFrame(hd["intervals"])
+    grid["bend"] = grid["bend_as_share_of_pre_slope"]
+    grid["target"] = grid["target"].map({"year 1 (2025)": "Year 1 (2025)",
+                                         "year 2 (Jan-Aug 2026)": "Year 2 (Jan-Aug 2026)"})
+    band = alt.Chart(grid).mark_area(opacity=0.35, color="#FDBA74").encode(
+        x=alt.X("bend:Q", title="Allowed bend, share of the pre-toll slope", axis=alt.Axis(format="%")),
+        y=alt.Y("low:Q", title="Effect on CBD trips", axis=alt.Axis(format="+%")), y2="high:Q",
+        tooltip=[alt.Tooltip("bend:Q", format=".0%"), alt.Tooltip("low:Q", format="+.1%"),
+                 alt.Tooltip("high:Q", format="+.1%")])
+    est = alt.Chart(grid).mark_line(color=COLORS["cbd"]).encode(x="bend:Q", y="estimate:Q")
+    now = alt.Chart(pd.DataFrame({"x": [share]})).mark_rule(color="#111827", strokeDash=[3, 3]).encode(x="x:Q")
+    zero_rule = alt.Chart(pd.DataFrame({"y": [0]})).mark_rule(color="black").encode(y="y:Q")
+    st.altair_chart((band + est + zero_rule + now).properties(height=240, width=320).facet(
+        column=alt.Column("target:N", title=None)).resolve_scale(y="independent"), width="content")
+    st.info(
+        "Year 1 holds up: only an implausibly sharp change in the CBD's trend could hide a real drop. "
+        "Year 2 does not: projecting the pre-toll years forward puts early 2026 on trend, and even a small "
+        "bend allows a wide range, so the early-2026 decline stays something to watch, not a finding."
+    )
+
+    st.markdown("#### Are the confidence intervals themselves right?")
+    st.markdown(
+        "Standard errors are clustered by zone (60 zones, very unequal in size). A **wild cluster bootstrap** "
+        f"({rob['wild_bootstrap']['n_boot']:,} draws) does not rely on the usual approximation. It changes nothing "
+        "that matters:"
+    )
+    bt = pd.DataFrame(rob["wild_bootstrap"]["rows"])
+    st.dataframe(pd.DataFrame({
+        "Estimate": bt["specification"],
+        "Effect": bt["effect"].map(pct),
+        "Usual 95% CI": [f"{pct(a)} to {pct(b)}" for a, b in zip(bt["analytic_low"], bt["analytic_high"])],
+        "Bootstrap 95% CI": [f"{pct(a)} to {pct(b)}" for a, b in zip(bt["boot_low"], bt["boot_high"])],
+        "Bootstrap p": bt["p_boot"].map(lambda v: f"{v:.3f}"),
+    }), hide_index=True, width="stretch")
 
 st.divider()
 st.caption(
