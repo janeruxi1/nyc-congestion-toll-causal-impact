@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 02 · Trends before and after the toll
 #
@@ -24,6 +12,14 @@
 #
 # Yellow taxis and Uber/Lyft only (green taxis cannot pick up street hails
 # in the CBD; see notebook 01).
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | What does the raw data show before any model? |
+# | **Answer** | CBD trips fell in 2025, but the CBD was already losing share of trips at a similar pace before the toll, taxis gained share inside the zone, and the Uber/Lyft drop is largest overnight, when the toll matters least. A naive before/after comparison would blame the toll for a trend that was already there. |
+# | **Next** | [Notebook 03](03_difference_in_differences.ipynb) estimates the effect with difference-in-differences. |
 
 # %%
 import os

@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 04 · Forecast counterfactual: what would 2025 have looked like?
 #
@@ -25,6 +13,14 @@
 # months of training data, so yearly seasonality can be learned). Nothing
 # happened on those dates, which makes the backtest error both the accuracy
 # check and the noise band.
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | A second method: forecast the CBD's 2025 trips from its own pre-toll history. Did 2025 fall short of the no-toll forecast? |
+# | **Answer** | No. CBD trips stayed within about a percent of the forecast, inside the band the backtests show even in years with no toll. Net of the forecast's usual error, the CBD is about +0.3% against its forecast. |
+# | **Next** | [Notebook 05](05_synthetic_control.ipynb) tries a third method, synthetic control. |
 
 # %%
 import os
@@ -135,6 +131,10 @@ for col, df in res.items():
 weekly = pd.concat(out, ignore_index=True)
 weekly["week"] = weekly["week"].dt.date.astype(str)
 weekly.round(1).to_csv("reports/metrics/forecast_weekly.csv", index=False)
+
+
+# %% [markdown]
+# **How to read the figure.** The line before the toll is the actual weekly trip count; after it, the forecast of what would have happened with no toll, with its uncertainty band, and the actual trips laid on top. Actual trips staying inside the band means the toll year looks like an ordinary year for the forecast.
 
 # %% [markdown]
 # ## 3. The forecast gap, by year

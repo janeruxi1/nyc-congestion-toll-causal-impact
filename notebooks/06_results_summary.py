@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 06 · Results summary
 #
@@ -17,6 +5,14 @@
 # ride-hail trips starting in the CBD three ways. This notebook puts them
 # side by side, draws the summary figure and writes the numbers the README
 # and decision memo quote.
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | Putting the three methods side by side: what did the toll do in its first year? |
+# | **Answer** | No detectable change in trips starting in the toll zone by any method, while trips got faster, drivers earned more per hour and shared rides fell. The fee adds about 4% to the price of a CBD trip, and the forecast check rules out an elasticity much beyond −0.5: demand looks inelastic to a fee of this size. |
+# | **Next** | [Notebook 07](07_robust_inference.ipynb) stress-tests the intervals. |
 
 # %%
 import os
@@ -123,6 +119,10 @@ fig.suptitle("NYC congestion toll, year one: no detectable change in trips; fast
 fig.tight_layout()
 save(fig, "06_hero_summary.png")
 plt.show()
+
+
+# %% [markdown]
+# **How to read the figure.** Left: the toll's effect on trips from each method, with 95% intervals where the method gives one. The grey rows above the divider ignore the CBD's pre-toll decline and show a drop, but so does the same comparison of 2024 with 2023, when there was no toll (the brown row). The coloured rows below account for the decline and cluster around zero. Right: the outcomes that clearly did change, trend-adjusted, with their intervals.
 
 # %% [markdown]
 # ## How sensitive is demand to the fee?

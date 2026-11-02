@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 05 · Synthetic control
 #
@@ -26,6 +14,14 @@
 #
 # Inference: run the same method on every donor zone as if it had been
 # treated ("placebo in space") and see how unusual the CBD's result is.
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | A third method: build a "CBD without the toll" from a weighted mix of other zones. Is there a gap after January 2025? |
+# | **Answer** | Only before each zone's own trend is removed. The standard version shows a 6.7% gap that is not unusual among zones with no toll (p = 0.18); the trend-adjusted version shows +0.3% (p = 0.93). The three methods agree: no detectable effect on trips in year one. |
+# | **Next** | [Notebook 06](06_results_summary.ipynb) puts the three methods side by side. |
 
 # %%
 import os
@@ -104,6 +100,10 @@ fig.suptitle("Synthetic control: the 2025 gap disappears once each zone's own tr
 save(fig, "05_synthetic_gap.png")
 plt.show()
 
+
+# %% [markdown]
+# **How to read the figure.** Each line is the gap between the real CBD and its synthetic twin (log scale, so 0.05 is about 5%), smoothed over four weeks. Before the toll the gap should hover around zero, which shows the twin is a good match. Left: the standard version drifts downward, carrying the CBD's pre-existing decline into 2025. Right: with each zone's own trend removed, the 2025 gap stays near zero.
+
 # %% [markdown]
 # ## 3. Placebo in space
 #
@@ -128,6 +128,10 @@ ax.set_title("The CBD's 2025 result is ordinary among zones that had no toll")
 ax.legend()
 save(fig, "05_placebo_in_space.png")
 plt.show()
+
+
+# %% [markdown]
+# **How to read the figure.** Each grey bar counts zones that had no toll but are run through the same method as if they had. The coloured line is the CBD. A real effect would put the CBD far out in a tail; here it sits among the no-toll zones, so its result is not unusual.
 
 # %%
 write_metrics("synth", {

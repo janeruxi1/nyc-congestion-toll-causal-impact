@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 03 · Difference-in-differences: did the toll reduce trips?
 #
@@ -29,6 +17,14 @@
 # 5. Robustness: services, comparison groups, weighting, a within-origin design.
 # 6. What else changed: trip speed, waits, fares, driver pay, shared rides, time of day.
 # 7. How much the fee raised the price of a CBD trip.
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | Did the toll reduce taxi and ride-hail trips starting in the toll zone, compared with the rest of Manhattan? |
+# | **Answer** | No detectable effect on trips in year one: +1.0% (95% CI −0.3% to +2.3%) once each zone's pre-toll trend is allowed for. The quick comparison without trends finds a drop, but it finds a similar drop on fake toll dates too. What did change: trips got faster (+5%), drivers earned more per hour (+2.7%) and shared rides fell (−12.7%). |
+# | **Next** | [Notebook 04](04_forecast_counterfactual.ipynb) checks the answer with a forecast. |
 
 # %%
 import os

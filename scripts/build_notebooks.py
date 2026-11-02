@@ -126,7 +126,7 @@ def main(argv=None) -> int:
             print("Refusing to execute: data/processed/zone_day.parquet is missing. "
                   "Run scripts/build_data.py first.")
             return 1
-        os.environ.setdefault("MPLBACKEND", "module://matplotlib_inline.backend_inline")
+        os.environ["MPLBACKEND"] = "module://matplotlib_inline.backend_inline"  # an inherited Agg would drop every figure
         if sys.platform == "win32":  # pyzmq needs the selector event loop on Windows; avoids a noisy warning
             import asyncio
 

@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 01 · Data audit
 #
@@ -23,6 +11,14 @@
 # the trips actually paid, and measures how often trips that do *not* start
 # or end in the zone still pay (they pass through it), which matters for the
 # comparison group.
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | Can New York's trip records be trusted for a before/after comparison, and which taxi zones are inside the toll zone? |
+# | **Answer** | Yes. Cleaning removes 0–4% of rows in a typical month; 38 zones are clearly inside the toll zone (90–100% of same-zone Uber/Lyft trips pay the fee) and 6 sit on the 60th Street edge and are left out; the fee is never charged before January 2025. Green taxis are dropped because their CBD records are mostly not toll-zone demand. |
+# | **Next** | [Notebook 02](02_trends.ipynb) looks at the raw trends. |
 
 # %%
 import os

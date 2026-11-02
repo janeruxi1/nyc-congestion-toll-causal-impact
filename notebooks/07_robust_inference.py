@@ -1,15 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#   kernelspec:
-#     display_name: Python 3
-#     language: python
-#     name: python3
-# ---
-
 # %% [markdown]
 # # 07 · How much can the intervals be trusted?
 #
@@ -31,6 +19,14 @@
 # Both methods are implemented in `src/congestion/inference.py` and tested
 # against brute-force refits and the R package's own bias formula
 # (`tests/test_inference.py`).
+
+
+# %% [markdown]
+# | | |
+# |---|---|
+# | **Question** | How much can notebook 03's intervals be trusted, and how far would the answer move if the CBD's pre-toll trend had bent? |
+# | **Answer** | The main result holds. A wild cluster bootstrap widens the intervals by at most 6% and changes no conclusion. A 5% toll-driven drop stays ruled out unless the CBD's decline sped up, for other reasons, by more than its whole pre-toll pace in the toll year itself. The second-year decline is less robust: it depends on how the trend is drawn. |
+# | **Next** | Back to the [README](../README.md) or the [decision memo](../reports/decision_memo.md). |
 
 # %%
 import os
@@ -214,6 +210,10 @@ axes[0].set_ylabel("Effect on CBD trips")
 fig.suptitle("HonestDiD: how far the answer moves if the CBD's relative trend bent", fontweight="bold", y=1.04)
 save(fig, "07_honestdid.png")
 plt.show()
+
+
+# %% [markdown]
+# **How to read the figure (HonestDiD).** The horizontal axis is how much the CBD's pre-toll trend is allowed to bend after the toll, as a share of its original slope; zero means the trend carries on exactly. The band is the 95% interval at each allowance. Left, year one: the band stays above the dotted −5% line until a very large bend, so a sizeable drop is ruled out. Right, year two: the band widens quickly, so the second-year result depends on that assumption.
 
 # %%
 def r6(x):
