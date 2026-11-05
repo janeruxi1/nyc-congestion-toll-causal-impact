@@ -182,6 +182,7 @@ st.markdown(
     f"happened to trips starting in the zone, using **{summ['trips_kept'] / 1e9:.2f} billion** TLC "
     "trip records from January 2022 to August 2026."
 )
+st.markdown(f"[Code and notebooks]({REPO_URL}) · [Decision memo]({REPO_URL}/blob/main/reports/decision_memo.md)")
 with st.expander("ℹ️ How to use this demo"):
     st.markdown(
         """

@@ -15,6 +15,7 @@ DOCS = {name: (ROOT / path).read_text(encoding="utf-8")
         for name, path in [("readme", "README.md"), ("memo", "reports/decision_memo.md"),
                            ("summary", "reports/PROJECT_SUMMARY.md"), ("phases", "docs/PHASES.md"),
                            ("cloud", "cloud/README.md")]}
+DOCS["readme"] += "\n" + (ROOT / "docs" / "results.md").read_text(encoding="utf-8")   # README + its full-results page
 
 
 def m(name):
