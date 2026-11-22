@@ -15,7 +15,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install
-        run: pip install -r requirements.txt ruff==0.6.9
+        run: pip install -r requirements-lock.txt ruff==0.6.9   # exact library versions; requirements.txt keeps the ranges
       - name: Lint
         run: ruff check src tests scripts notebooks app
       - name: Tests (ETL, methods, reported numbers, app)
